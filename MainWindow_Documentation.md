@@ -564,3 +564,6 @@ One would think ``state == cross_seeds_check_box.isChecked()`` would return ``Tr
      - **False**:
        - Set ``file_flag`` to ``False``
        - Return ``False`` 
+
+---
+
