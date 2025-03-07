@@ -100,7 +100,7 @@ Tutorial: *https://www.youtube.com/watch?v=6bzzpda63H0*
 
 
 <p align="center">
-      <img src="https://github.com/caresiop/GSC-AVL-Script/blob/main/UI.png?raw=true" width="387" height="566" />
+      <img src="https://github.com/caresiop/GSC-AVL-Script/blob/main/images/UI.png?raw=true" width="387" height="566" />
 </p>
 
 ### Buttons:
