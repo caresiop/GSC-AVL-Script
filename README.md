@@ -4,6 +4,7 @@
 - ``PyQT5`` GUI
 - ``Google Drive API`` Support
 - ``Cross Seeds`` session added
+- Text editor to log and view actions
 
 ## Installation
 
