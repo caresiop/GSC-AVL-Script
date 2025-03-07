@@ -11,6 +11,7 @@ class Audacity():
         self.init_pipes()
         self.clear_audio()
 
+    
     def init_pipes(self):
         while not os.path.isdir(self.PATH):
             self.PATH = os.path.realpath(input('Path to test folder: '))
@@ -18,6 +19,7 @@ class Audacity():
                 print('Invalid path. Try again.')
         print('Local save folder: ' + self.PATH)
 
+        
         """
         Platform specific file name and file path.
         PATH is the location of files to be imported / exported.
@@ -43,7 +45,7 @@ class Audacity():
         # Remove file extension.
         INFILE = os.path.splitext(INFILE)[0]
         """
-
+        
         # Platform specific constants
         if sys.platform == 'win32':
             print("GSC AVL Script.command, running on windows")
