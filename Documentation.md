@@ -2,6 +2,8 @@
 
 # ``Class MainWindow``
 
+## Table of Contents
+
 [Start up](#start-up)
 - [``start_up()``](#start_up)
 - [``open_message_box()``](#open_message_box)
