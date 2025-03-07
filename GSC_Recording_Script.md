@@ -53,7 +53,7 @@
 
     **Default**: ``False`` 
 
-    **Description**: If ``Record`` or ``Pause`` has been called, the app is 'recording'; flag is set to ``True``; ``False`` after ``Save``
+    **Description**: If ``Record`` or ``Pause`` has been called, the app is 'recording'; flag is set to ``True``; ``False`` after ``Clear`` or ``Save``
 
 - ``record_state_flag``
 
