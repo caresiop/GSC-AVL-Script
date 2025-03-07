@@ -165,7 +165,7 @@ class MainWindow(QMainWindow):
 
     # Start up message
     def open_message_box(self):
-        QMessageBox.information(self, "Initial Setup", "Initial Setup:\n\nExport Audio:\nFormat: MP3 Files\nQuality: 320 kbps\n\nAudio Setup:\nPlayback Device: WING\nRecording Device: WING\nRecording Channels: 2 (Stereo)\n")
+        QMessageBox.information(self, "Initial Setup", "'Audacity' Setup:\n\nExport Audio:\nFormat: MP3 Files\nQuality: 320 kbps\n\nAudio Setup:\nPlayback Device: WING\nRecording Device: WING\nRecording Channels: 2 (Stereo)\n")
 
     """ Exit ================================================================================================================================================================"""
 
