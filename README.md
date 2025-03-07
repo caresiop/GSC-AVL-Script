@@ -83,6 +83,8 @@ Tutorial: *https://www.youtube.com/watch?v=6bzzpda63H0*
 
 ### Usage
 
+Parent folder: *https://drive.google.com/drive/folders/1Kj4ezQYKGRUn4QKl8rUQtyuo3JlIi4Pz?usp=sharing*
+
 'GSC' folder: *https://drive.google.com/drive/folders/1s061yboiwKgqWVvSW0oYhwxz21ejG7O7?usp=sharing*
 
 'Cross Seeds' folder: *https://drive.google.com/drive/folders/12K29Zq0RGmT2t0xM9BB51sb8blhlMpwE?usp=sharing*
