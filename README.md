@@ -18,7 +18,7 @@ Please download any ``Audacity`` v3.
 
 - *https://pypi.org/project/PyQt5/*
 
-        pip3 install PyQT5
+      pip3 install PyQT5
 
 ---
 
