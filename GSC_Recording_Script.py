@@ -179,7 +179,7 @@ class MainWindow(QMainWindow):
         self.check_directory()
 
         if self.curr_recording_flag:
-            if self.user_prompt_box("Recording", "There is currently a recording in process.\n\nWould you still like to exit?"):
+            if self.user_prompt_box("Recording", "There is currently a recording in progress.\n\nWould you still like to exit?"):
                 if self.file_flag:
                     if self.user_prompt_box("Files in directory", "There are currently files in the local directory to be uploaded:\n\n" + self.list_files_box() + "\nWould you still like to exit?"):
                         self.audacity_service.exit()
@@ -589,7 +589,7 @@ class MainWindow(QMainWindow):
     # Upload when recording message
     def curr_record_prompt_box(self):
         if self.curr_recording_flag:
-            return self.user_prompt_box("Recording", "There is a recording in progress.\n\nWould you like to continue?")
+            return self.user_prompt_box("Recording", "There is currently a recording in progress.\n\nWould you still like to continue?")
         else:
             return True
 
