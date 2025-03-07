@@ -1,8 +1,8 @@
 # GSC-AVL-Script
 
 **v2.0 changes**
-- PyQT5 GUI
-- Google Drive API Support
+- ``PyQT5`` GUI
+- ``Google Drive API`` Support
 
 ## Installation
 
