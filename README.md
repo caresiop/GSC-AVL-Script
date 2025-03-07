@@ -115,8 +115,8 @@ Tutorial: *https://www.youtube.com/watch?v=6bzzpda63H0*
 
 ### Features:
 - Drop down menu can be manually edited to include other file titles
-  - Unfamiliar file titles will be placed in a ``Google Drive`` 'Misc' folder
-- If program is exited and files aren't uploaded to ``Google Drive``, they can be uploaded on next program start up
+  - Unfamiliar file titles will be placed in ``Google Drive`` 'Misc' folder
+- If program is closed and files aren't uploaded to ``Google Drive``, they can be uploaded on next program start up
 - ``Cross Seeds`` check box for church youth group service
   - Locks session into ``Cross Seeds`` session once file is saved locally to ensure ``GSC`` files and ``Cross Seeds`` files are not uploaded into incorrect ``Google Drive`` folder(s)
 - If user empties local save directory manually, app will recognize there are no files to upload and unlock session
