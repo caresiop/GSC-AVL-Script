@@ -2,6 +2,13 @@
 
 # ``Class MainWindow``
 
+[Start up](#start-up)
+- [``start_up()``](#start_up)
+- [``open_message_box()``](#open_message_box)
+
+[Close](#close)
+- [``closeEvent()``](#closeEvent)
+
 [Button Functions](#button-functions)
 - [``record()``](#record)
 - [``pause()``](#pause)
@@ -24,11 +31,90 @@
 - [``check_directory()``](#check_directory)
 
 [Message Box Functions](#message-box-functions)
-- [``open_message_box()``](#open_message_box)
 - [``create_message_box()``](#create_message_box)
 - [``create_warning_box()``](#create_warning_box)
 - [``user_prompt_box()``](#user_prompt_box)
 - [``curr_record_prompt()``](#curr_record_prompt)
+
+---
+
+## Start up
+
+### ``start_up()`` 
+
+- **Parameters**: ``None``
+
+- **Return**: ``None``
+
+**Description**: Checks whether there are files in local save directory from a previous session; if so, restores session
+
+**UI button states**:
+  - **Enabled**: ``None``
+  - **Disabled**: ``None``
+  - **Conditional**: ``Cross Seeds`` check box, ``Upload``
+
+**Pseudocode**:
+
+- Call ``clean_directory()`` (often ``.DS_Store`` makes its way into the local save directory)
+- Check whether there are files in local save directory (``check_directory()``)
+ - **True**:
+   - Obtain ``list`` of files in local save directory
+   - Check whether the files in local save directory are from a 'GSC' session or 'Cross Seeds' session
+     - **'GSC'**:
+       - Notify user of 'GSC' session
+       - Message box user of continued 'GSC' session 
+     - **'Cross Seeds'**:
+       - Set ``cross_seeds_flag`` to ``True``
+       - Call ``cross_seeds_check_box()`` with parameter ``True`` to notify function of start up
+   - Enable ``Upload`` button (there are files to upload)
+   - Disable ``Cross Seeds`` check box (lock session)
+ - **False**:
+   - Notify user of default `GSC` session 
+   - Call ``open_message_box()`` to message box user of ``Audacity`` app requirements 
+
+---
+
+### ``open_message_box()`` 
+
+- **Parameters**: ``None``
+
+- **Return**: ``None``
+
+**Description**: Start up message box notifying user of necessary ``Audacity`` app configurations
+
+---
+
+## Close
+
+### ``closeEvent`` 
+
+**Note**: Overloaded ``PyQT5`` close function
+
+- **Parameters**: ``QCloseEvent event``
+
+- **Return**: ``None``
+
+**Description**: Checks whether there are files in local save directory from a previous session; if so, restores session
+
+**Pseudocode**:
+
+- Call ``clean_directory()`` (often ``.DS_Store`` makes its way into the local save directory)
+- Check whether there is a recording in progress (``curr_recording_flag``)
+ - **True**:
+   - Prompt user of files to be uploaded and whether they would still like to exit
+     - **Yes**:
+       - Call ``Audacity`` function ``exit()``
+       - ``event.accept()`` (closes program)
+     - **No**:
+       - ``event.ignore()``
+- Check whether there are files in local save directory (``check_directory()``)
+ - **True**:
+   - Prompt user of files to be uploaded and whether they would still like to exit
+     - **Yes**:
+       - Call ``Audacity`` function ``exit()``
+       - ``event.accept()`` (closes program)
+     - **No**:
+       - ``event.ignore()``  
 
 ---
 
@@ -290,10 +376,10 @@
 
 1. UI changes
     - Set ``Copy`` button color to Blue
-3. Execute
+2. Execute
     - Call QTextEdit function ``selectAll()``
     - Call QTextEdit function ``copy()``
-4. UI changes
+3. UI changes
     - Set ``Copy`` button color to Grey
   
 ---
@@ -310,22 +396,21 @@
 
 **Pseudocode**:
 
-1. Execute
-   - Check whether the ``cross_seeds_check_box`` is checked
-     - **True**:
-       - Set ``cross_seeds_flag`` to ``False``
-       - Call ``GoogleCloud`` function ``cross_seeds`` to notify ``GoogleCloud`` instance that the session is in `GSC`
-       - Notify user that a `GSC` session is starting
-       - Message box user of new `GSC` session
-     - **False**:
-       - Set ``cross_seeds_flag`` to ``True``
-       - Call ``GoogleCloud`` function ``cross_seeds`` to notify ``GoogleCloud`` instance that the session is in `Cross Seeds`
-       - Notify user that the session of new session
-         - if ``start_up`` parameter is ``True``
-           -  **True**:
-             - Message box user of continuing previous `Cross Seeds` session
-           -  **False**:
-             - Message box user of new `Cross Seeds` session
+- Check whether the ``cross_seeds_check_box`` is checked
+  - **True**:
+    - Set ``cross_seeds_flag`` to ``False``
+    - Call ``GoogleCloud`` function ``cross_seeds`` to notify ``GoogleCloud`` instance that the session is in `GSC`
+    - Notify user that a `GSC` session is starting
+    - Message box user of new `GSC` session
+  - **False**:
+    - Set ``cross_seeds_flag`` to ``True``
+    - Call ``GoogleCloud`` function ``cross_seeds`` to notify ``GoogleCloud`` instance that the session is in `Cross Seeds`
+    - Notify user that the session of new session
+      - if ``start_up`` parameter is ``True``
+        -  **True**:
+          - Message box user of continuing previous `Cross Seeds` session
+        -  **False**:
+          - Message box user of new `Cross Seeds` session
   
 **Developer Notes**
 
@@ -350,8 +435,7 @@ One would think ``state == cross_seeds_check_box.isChecked()`` would return ``Tr
 
 **Pseudocode**:
 
-1. Execute
-   - Disable ``Cross Seeds`` check box and ``Record``, ``Pause``, ``Clear``, ``Save``, ``Upload``, ``Local Files``, ``Copy`` buttons
+- Disable ``Cross Seeds`` check box and ``Record``, ``Pause``, ``Clear``, ``Save``, ``Upload``, ``Local Files``, ``Copy`` buttons
   
 ---
 
@@ -370,21 +454,20 @@ One would think ``state == cross_seeds_check_box.isChecked()`` would return ``Tr
 
 **Pseudocode**:
 
-1. Execute
-   - Check ``curr_recording_flag`` to see if there is currently a recording in session
-     - **True**:
-       - Enable ``Clear/Save`` buttons
-       - Check ``record_state_flag`` to see whether ``Record`` is active or ``Pause`` is active
-         - **True**:
-           - Set ``Record`` button to Green
-           - Set ``Pause`` button to Grey
-           - Enable ``Record`` button
-           - Disable ``Pause`` button
-         - **False**:
-           - Set ``Pause`` button to Yellow
-           - Set ``Record`` button to Grey
-           - Enable ``Pause`` button
-           - Disable ``Record`` button
+- Check ``curr_recording_flag`` to see if there is currently a recording in session
+  - **True**:
+    - Enable ``Clear/Save`` buttons
+    - Check ``record_state_flag`` to see whether ``Record`` is active or ``Pause`` is active
+      - **True**:
+        - Set ``Record`` button to Green
+        - Set ``Pause`` button to Grey
+        - Enable ``Record`` button
+        - Disable ``Pause`` button
+      - **False**:
+        - Set ``Pause`` button to Yellow
+        - Set ``Record`` button to Grey
+        - Enable ``Pause`` button
+        - Disable ``Record`` button
 
 ---
 
@@ -403,10 +486,9 @@ One would think ``state == cross_seeds_check_box.isChecked()`` would return ``Tr
 
 **Pseudocode**:
 
-1. Execute
-   - Check ``file_flag`` to see if there are files in the local directory
-     - **True**:
-       - Enable ``Upload`` button
+- Check ``file_flag`` to see if there are files in the local directory
+  - **True**:
+    - Enable ``Upload`` button
       
 --- 
 
@@ -425,9 +507,8 @@ One would think ``state == cross_seeds_check_box.isChecked()`` would return ``Tr
 
 **Pseudocode**:
 
-1. Execute
-   - Enable ``Local Files`` button
-   - Enable ``Copy`` button
+- Enable ``Local Files`` button
+- Enable ``Copy`` button
   
 ---
 
@@ -441,12 +522,11 @@ One would think ``state == cross_seeds_check_box.isChecked()`` would return ``Tr
 
 **Pseudocode**:
 
-1. Execute
-   - Grab file names as ``list`` from local save directory (``os.listdir(*path*)``)
-   - Sort ``list`` into alphabetical/numerical order
-   - Create an empty ``string`` variable
-   - Iterate through ``list`` and append file name to ``string`` variable on each iteration
-   - Return ``string`` variable
+- Grab file names as ``list`` from local save directory (``os.listdir(*path*)``)
+- Sort ``list`` into alphabetical/numerical order
+- Create an empty ``string`` variable
+- Iterate through ``list`` and append file name to ``string`` variable on each iteration
+- Return ``string`` variable
   
 ---
 
@@ -506,10 +586,9 @@ One would think ``state == cross_seeds_check_box.isChecked()`` would return ``Tr
 
 **Pseudocode**:
 
-1. Execute
-   - Iterate through all files and directories in local save directory (``os.walk(*path*)``)
-     - Iterate through files and send to trash any files not containing ``.mp3``
-     - Iterate through directories and send to trash all directories
+- Iterate through all files and directories in local save directory (``os.walk(*path*)``)
+  - Iterate through files and send to trash any files not containing ``.mp3``
+  - Iterate through directories and send to trash all directories
     
 ---
 
@@ -523,10 +602,9 @@ One would think ``state == cross_seeds_check_box.isChecked()`` would return ``Tr
 
 **Pseudocode**:
 
-1. Execute
-   - Iterate through all files and directories in local save directory (``os.walk(*path*)``)
-     - Iterate through files and send to trash all files
-     - Iterate through directories and send to trash all directories
+- Iterate through all files and directories in local save directory (``os.walk(*path*)``)
+  - Iterate through files and send to trash all files
+  - Iterate through directories and send to trash all directories
     
 ---
 
@@ -540,29 +618,18 @@ One would think ``state == cross_seeds_check_box.isChecked()`` would return ``Tr
 
 **Pseudocode**:
 
-1. Execute
-   - Grab list of files from local save directory (``os.listdir(*path*)``)
-   - Check whether there are files in the list
-     - **True**:
-       - Set ``file_flag`` to ``True``
-       - Return ``True``
-     - **False**:
-       - Set ``file_flag`` to ``False``
-       - Return ``False`` 
+- Grab list of files from local save directory (``os.listdir(*path*)``)
+- Check whether there are files in the list
+  - **True**:
+    - Set ``file_flag`` to ``True``
+    - Return ``True``
+  - **False**:
+    - Set ``file_flag`` to ``False``
+    - Return ``False`` 
 
 ---
 
 ## Message Box Functions
-
-### ``open_message_box()`` 
-
-- **Parameters**: ``None``
-
-- **Return**: ``None``
-
-**Description**: Start up message box notifying user of necessary Audacity configurations (hard coded)
-
----
 
 ### ``create_message_box()`` 
 
@@ -594,9 +661,8 @@ One would think ``state == cross_seeds_check_box.isChecked()`` would return ``Tr
 
 **Pseudocode**:
 
-1. Execute
-   - Check ``curr_recording_flag``
-     - **True**:
-       - return (Prompt user whether they wish to continue)
-     - **False**:
-       - return ``True`` 
+- Check ``curr_recording_flag``
+  - **True**:
+    - return (Prompt user whether they wish to continue)
+  - **False**:
+    - return ``True`` 
