@@ -70,7 +70,8 @@
     - Disable ``Cross Seeds`` check box (lock session)
   - **False**:
     - Notify user of default `GSC` session 
-    - Call ``open_message_box()`` to message box user of ``Audacity`` app requirements 
+    - Call ``open_message_box()`` to message box user of ``Audacity`` app requirements
+- Call ``open_message_box`` to message box user ``Audacity`` app configurations
 
 ---
 
@@ -99,22 +100,34 @@
 **Pseudocode**:
 
 - Call ``clean_directory()`` (often ``.DS_Store`` makes its way into the local save directory)
+- Call ``check_directory()`` to update ``file_flag``
 - Check whether there is a recording in progress (``curr_recording_flag``)
   - **True**:
-    - Prompt user of files to be uploaded and whether they would still like to exit
-      - **Yes**:
-        - Call ``Audacity`` function ``exit()``
-        - ``event.accept()`` (closes program)
-      - **No**:
-        - ``event.ignore()``
-- Check whether there are files in local save directory (``check_directory()``)
-  - **True**:
-    - Prompt user of files to be uploaded and whether they would still like to exit
-      - **Yes**:
-        - Call ``Audacity`` function ``exit()``
-        - ``event.accept()`` (closes program)
-      - **No**:
-        - ``event.ignore()``  
+    - Prompt user of recording in progress and whether they would still like to exit
+      - **Yes** 
+        - Check whether there are files in local save directory
+            - **True**:
+              - Prompt user of files to be uploaded and whether they would still like to exit
+                - **Yes**:
+                  - Call ``Audacity`` function ``exit()``
+                  - ``event.accept()`` (closes program)
+                - **No**:
+                  - ``event.ignore()``
+            - **False**
+              - Call ``Audacity`` function ``exit()``
+                - ``event.accept()`` (closes program)
+      - **No**
+        - ``event.ignore()`` 
+  - **False** (``elif``) Check whether there are files in local save directory
+      - **True**:
+        - Prompt user of files to be uploaded and whether they would still like to exit
+          - **Yes**:
+            - Call ``Audacity`` function ``exit()``
+            - ``event.accept()`` (closes program)
+          - **No**:
+            - ``event.ignore()``
+  - **False**
+    - ``event.ignore()`` 
 
 ---
 
@@ -638,6 +651,16 @@ Execute
 - **Return**: ``None``
 
 **Description**: Message box that displays passed ``string``
+
+---
+
+### ``create_warning_box()`` 
+
+- **Parameters**: ``string message``
+
+- **Return**: ``None``
+
+**Description**: Warning box that displays passed ``string``
 
 ---
 
