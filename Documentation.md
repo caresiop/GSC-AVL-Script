@@ -6,7 +6,7 @@
 - [``start_up()``](#start_up)
 - [``open_message_box()``](#open_message_box)
 
-[Close](#close)
+[Exit](#exit)
 - [``closeEvent()``](#closeEvent)
 
 [Button Functions](#button-functions)
@@ -49,28 +49,28 @@
 **Description**: Checks whether there are files in local save directory from a previous session; if so, restores session
 
 **UI button states**:
-  - **Enabled**: ``None``
-  - **Disabled**: ``None``
-  - **Conditional**: ``Cross Seeds`` check box, ``Upload``
+- **Enabled**: ``None``
+- **Disabled**: ``None``
+- **Conditional**: ``Cross Seeds`` check box, ``Upload``
 
 **Pseudocode**:
 
 - Call ``clean_directory()`` (often ``.DS_Store`` makes its way into the local save directory)
 - Check whether there are files in local save directory (``check_directory()``)
- - **True**:
-   - Obtain ``list`` of files in local save directory
-   - Check whether the files in local save directory are from a 'GSC' session or 'Cross Seeds' session
-     - **'GSC'**:
-       - Notify user of 'GSC' session
-       - Message box user of continued 'GSC' session 
-     - **'Cross Seeds'**:
-       - Set ``cross_seeds_flag`` to ``True``
-       - Call ``cross_seeds_check_box()`` with parameter ``True`` to notify function of start up
-   - Enable ``Upload`` button (there are files to upload)
-   - Disable ``Cross Seeds`` check box (lock session)
- - **False**:
-   - Notify user of default `GSC` session 
-   - Call ``open_message_box()`` to message box user of ``Audacity`` app requirements 
+  - **True**:
+    - Obtain ``list`` of files in local save directory
+    - Check whether the files in local save directory are from a 'GSC' session or 'Cross Seeds' session
+      - **'GSC'**:
+        - Notify user of 'GSC' session
+        - Message box user of continued 'GSC' session 
+      - **'Cross Seeds'**:
+        - Set ``cross_seeds_flag`` to ``True``
+        - Call ``cross_seeds_check_box()`` with parameter ``True`` to notify function of start up
+    - Enable ``Upload`` button (there are files to upload)
+    - Disable ``Cross Seeds`` check box (lock session)
+  - **False**:
+    - Notify user of default `GSC` session 
+    - Call ``open_message_box()`` to message box user of ``Audacity`` app requirements 
 
 ---
 
@@ -84,9 +84,9 @@
 
 ---
 
-## Close
+## Exit
 
-### ``closeEvent`` 
+### ``closeEvent()`` 
 
 **Note**: Overloaded ``PyQT5`` close function
 
@@ -100,21 +100,21 @@
 
 - Call ``clean_directory()`` (often ``.DS_Store`` makes its way into the local save directory)
 - Check whether there is a recording in progress (``curr_recording_flag``)
- - **True**:
-   - Prompt user of files to be uploaded and whether they would still like to exit
-     - **Yes**:
-       - Call ``Audacity`` function ``exit()``
-       - ``event.accept()`` (closes program)
-     - **No**:
-       - ``event.ignore()``
+  - **True**:
+    - Prompt user of files to be uploaded and whether they would still like to exit
+      - **Yes**:
+        - Call ``Audacity`` function ``exit()``
+        - ``event.accept()`` (closes program)
+      - **No**:
+        - ``event.ignore()``
 - Check whether there are files in local save directory (``check_directory()``)
- - **True**:
-   - Prompt user of files to be uploaded and whether they would still like to exit
-     - **Yes**:
-       - Call ``Audacity`` function ``exit()``
-       - ``event.accept()`` (closes program)
-     - **No**:
-       - ``event.ignore()``  
+  - **True**:
+    - Prompt user of files to be uploaded and whether they would still like to exit
+      - **Yes**:
+        - Call ``Audacity`` function ``exit()``
+        - ``event.accept()`` (closes program)
+      - **No**:
+        - ``event.ignore()``  
 
 ---
 
@@ -129,27 +129,27 @@
 **Description**: Calls ``Audacity`` command ``record_audio()``
 
 **UI button states**:
-  - **Enabled**: ``Pause``, ``Local Files``, ``Copy``
-  - **Disabled**: ``Record``
-  - **Conditional**: ``Clear/Save`` (``curr_recording_flag``->``update_record_state()``), ``Upload`` (``file_flag``->``update_upload_state()``)
+- **Enabled**: ``Pause``, ``Local Files``, ``Copy``
+- **Disabled**: ``Record``
+- **Conditional**: ``Clear/Save`` (``curr_recording_flag``->``update_record_state()``), ``Upload`` (``file_flag``->``update_upload_state()``)
 
 **Pseudocode**:
 
 1. User notification
-    - Notify user that ``record()`` has been called
+  - Notify user that ``record()`` has been called
 2. UI changes
-    - If ``Pause`` button color is Yellow, set the ``Pause`` button color to Grey
-    - Set ``Record`` button color to Green
-    - Disable all buttons (``disable_buttons()``) so no new functions can be queued
+  - If ``Pause`` button color is Yellow, set the ``Pause`` button color to Grey
+  - Set ``Record`` button color to Green
+  - Disable all buttons (``disable_buttons()``) so no new functions can be queued
 3. Execute
-    - Call Audacity record command (``record_audio()``)
-    - Set ``curr_recording_flag`` to ``True`` (there is currently a recording in progress)
-    - Set ``record_state_flag`` to ``True`` (currently in ``record`` state)
+  - Call Audacity record command (``record_audio()``)
+  - Set ``curr_recording_flag`` to ``True`` (there is currently a recording in progress)
+  - Set ``record_state_flag`` to ``True`` (currently in ``record`` state)
 4. Restore button states
-    - Disable ``Record`` button
-    - Enable ``Pause`` button
-    - Enable ``Upload`` button if files saved to upload (``file_flag``->``update_record_state()``)
-    - Enable ``Local Files`` and ``Copy`` buttons (``enable_local_files_copy()``)
+  - Disable ``Record`` button
+  - Enable ``Pause`` button
+  - Enable ``Upload`` button if files saved to upload (``file_flag``->``update_record_state()``)
+  - Enable ``Local Files`` and ``Copy`` buttons (``enable_local_files_copy()``)
 
 ---
 
@@ -162,26 +162,26 @@
 **Description**: Calls ``Audacity`` command ``pause_audio()``
 
 **UI button states**:
-  - **Enabled**: ``Record``, ``Local Files``, ``Copy``
-  - **Disabled**: ``Pause``
-  - **Conditional**: ``Clear/Save`` (``curr_recording_flag``-> ``update_record_state()``), ``Upload`` (``file_flag``-> ``update_upload_state()``)
+- **Enabled**: ``Record``, ``Local Files``, ``Copy``
+- **Disabled**: ``Pause``
+- **Conditional**: ``Clear/Save`` (``curr_recording_flag``-> ``update_record_state()``), ``Upload`` (``file_flag``-> ``update_upload_state()``)
 
 **Pseudocode**:
 
 1. User notification
-    - Notify user that ``pause()`` has been called
+  - Notify user that ``pause()`` has been called
 2. UI changes
-    - If ``Record`` button color is Green, set the ``Record`` button color to Grey
-    - Set ``Pause`` button color to Yellow
-    - Disable all buttons (``disable_buttons()``) so no new functions can be queued
+  - If ``Record`` button color is Green, set the ``Record`` button color to Grey
+  - Set ``Pause`` button color to Yellow
+  - Disable all buttons (``disable_buttons()``) so no new functions can be queued
 3. Execute
-    - Call Audacity record command (``stop_audio()``)
-    - Set ``record_state_flag`` to ``False`` (currently in ``pause`` state)
+  - Call Audacity record command (``stop_audio()``)
+  - Set ``record_state_flag`` to ``False`` (currently in ``pause`` state)
 4. Restore button states
-    - Disable ``Pause`` button
-    - Enable ``Record`` button
-    - Enable ``Upload`` button if files saved to upload (``file_flag``->``update_record_state()``)
-    - Enable ``Local Files`` and ``Copy`` buttons (``enable_local_files_copy()``)
+  - Disable ``Pause`` button
+  - Enable ``Record`` button
+  - Enable ``Upload`` button if files saved to upload (``file_flag``->``update_record_state()``)
+  - Enable ``Local Files`` and ``Copy`` buttons (``enable_local_files_copy()``)
 
 ---
   
@@ -207,24 +207,24 @@
 **Pseudocode**:
 
 1. User notification
-    - Notify user that ``clear()`` has been called
+  - Notify user that ``clear()`` has been called
 2. UI changes
-    - Set ``Record/Pause`` button colors to Grey
-    - Set ``Clear`` button to Red
-    - Disable all buttons (``disable_buttons()``) so no new functions can be queued
+  - Set ``Record/Pause`` button colors to Grey
+  - Set ``Clear`` button to Red
+  - Disable all buttons (``disable_buttons()``) so no new functions can be queued
 3. Execute
-    - Prompt user whether they are sure they want to clear the recording
-      - **Yes**:
-        - Call Audacity record command (``clear_audio()``)
-        - Set ``curr_recording_flag`` to ``False`` (there is currently no recording in progress)
-        - Enable ``Record`` button
-        - Notify user that recording has been cleared
+  - Prompt user whether they are sure they want to clear the recording
+    - **Yes**:
+      - Call Audacity record command (``clear_audio()``)
+      - Set ``curr_recording_flag`` to ``False`` (there is currently no recording in progress)
+      - Enable ``Record`` button
+      - Notify user that recording has been cleared
 4. Restore button states
-    - If ``curr_recording_flag``, enable ``Clear/Save`` buttons (recording was not cleared)
-       - If ``record_state_flag``, restore ``Record/Pause`` buttons and their respective colors
-    - Enable ``Upload`` button if files saved to upload (``file_flag``->(``update_record_state()``))
-    - Enable ``Local Files`` and ``Copy`` buttons (``enable_local_files_copy()``)
-    - Set ``Clear`` button to Grey
+  - If ``curr_recording_flag``, enable ``Clear/Save`` buttons (recording was not cleared)
+     - If ``record_state_flag``, restore ``Record/Pause`` buttons and their respective colors
+  - Enable ``Upload`` button if files saved to upload (``file_flag``->(``update_record_state()``))
+  - Enable ``Local Files`` and ``Copy`` buttons (``enable_local_files_copy()``)
+  - Set ``Clear`` button to Grey
 
 ---
 
@@ -250,37 +250,37 @@
 **Pseudocode**:
 
 1. User notification
-    - Notify user that ``save()`` has been called
+  - Notify user that ``save()`` has been called
 2. UI changes
-    - Set ``Record/Pause`` button colors to Grey
-    - Set ``Save`` button to Blue
-    - Disable all buttons (``disable_buttons()``) so no new functions can be queued
-      - *Note*: If first save of session is successful, user will be locked into their respective session ('GSC' or 'Cross Seeds') to ensure that session files are not mixed
+  - Set ``Record/Pause`` button colors to Grey
+  - Set ``Save`` button to Blue
+  - Disable all buttons (``disable_buttons()``) so no new functions can be queued
+    - *Note*: If first save of session is successful, user will be locked into their respective session ('GSC' or 'Cross Seeds') to ensure that session files are not mixed
 3. Execute
-    - Prompt user whether they are sure they want to save the recording
-      - **Yes**:
-        - Grab text from the drop-down menu (``combo_box``)
-        - Call Audacity record command (``save_audio()``) with the argument of the drop-down menu title/index
-          - **Successful**:
-            - Message box user of successful local save
-            - Determine if GSC or Cross Seeds session
-              - Rename file using date, time, session, and drop-down menu title
-            - Set ``curr_recording_flag`` to ``False`` (there is currently no recording in progress)
-            - Set ``file_flag`` to ``True`` (there is now a file in the local folder)
-            - Enable ``Record`` button
-            - Notify user that recording has been saved
-          - **Failure**:
-            - Warning box user of failed local save
-            - Notify user that recording was not saved
-      - **No**:
-        - Enable ``Save`` button
-        - If there is no file that was saved (``file_flag``), unlock session by enabling ``cross_seeds_check_button``
+  - Prompt user whether they are sure they want to save the recording
+    - **Yes**:
+      - Grab text from the drop-down menu (``combo_box``)
+      - Call Audacity record command (``save_audio()``) with the argument of the drop-down menu title/index
+        - **Successful**:
+          - Message box user of successful local save
+          - Determine if GSC or Cross Seeds session
+            - Rename file using date, time, session, and drop-down menu title
+          - Set ``curr_recording_flag`` to ``False`` (there is currently no recording in progress)
+          - Set ``file_flag`` to ``True`` (there is now a file in the local folder)
+          - Enable ``Record`` button
+          - Notify user that recording has been saved
+        - **Failure**:
+          - Warning box user of failed local save
+          - Notify user that recording was not saved
+    - **No**:
+      - Enable ``Save`` button
+      - If there is no file that was saved (``file_flag``), unlock session by enabling ``cross_seeds_check_button``
 4. Restore button states
-    - If ``curr_recording_flag``, enable ``Clear/Save`` buttons (recording was not saved)
-       - If ``record_state_flag``, restore ``Record/Pause`` buttons and their respective colors
-    - Enable ``Upload`` button if files saved to upload (``file_flag``->(``update_record_state()``))
-    - Enable ``Local Files`` and ``Copy`` buttons (``enable_local_files_copy()``)
-    - Set ``Save`` button to Grey
+  - If ``curr_recording_flag``, enable ``Clear/Save`` buttons (recording was not saved)
+     - If ``record_state_flag``, restore ``Record/Pause`` buttons and their respective colors
+  - Enable ``Upload`` button if files saved to upload (``file_flag``->(``update_record_state()``))
+  - Enable ``Local Files`` and ``Copy`` buttons (``enable_local_files_copy()``)
+  - Set ``Save`` button to Grey
 
 ---
 
@@ -306,38 +306,38 @@
 **Pseudocode**:
 
 1. User notification
-    - Notify user that ``upload()`` has been called
+  - Notify user that ``upload()`` has been called
 2. UI changes
-    - Set ``Record/Pause`` button colors to Grey
-    - Set ``Upload`` button to Blue
-    - Disable all buttons (``disable_buttons()``) so no new functions can be queued
+  - Set ``Record/Pause`` button colors to Grey
+  - Set ``Upload`` button to Blue
+  - Disable all buttons (``disable_buttons()``) so no new functions can be queued
 3. Execute
-    - Clean local save directory to only hold ``.mp3`` files (``clean_directory()``)
-    - Check if there are files in the local save directory (``check_directory()``)
-        - Empty:
-          - Warning box user that there are no files to upload, and that the current session will be unlocked
-            - Enable ``Record`` button
-            - Unlock session by enabling ``cross_seeds_check_button``
-        - Files present:
-          - Check if there is a recording in progress (``curr_recording_flag``->``curr_record_prompt``); if so, prompt user whether they are sure they want to save the recording
-            - **Yes**:
-              - Prompt user whether they want to upload to Google Drive; if so, list files to be uploaded and prompt user whether they want to upload the following files
-                - **Yes**:
-                  - Call ``GoogleCloud`` execute command (``exec()``)
-                  - Clear UI text box (``text_edit``)
-                  - Write date and respective session to UI text box
-                  - Print links to UI text box using ``get_links()`` function with ``GoogleCloud`` functions ``get_music_links``, ``get_sermon_links``, ``get_misc_links``
-                  - Empty local directory (``empty_directory``)
-                  - Message box user that upload was successful
-                  - Set ``file_flag`` to ``False`` because there are no files in local directory
-                  - Unlock session by enabling ``cross_seeds_check_button``
+  - Clean local save directory to only hold ``.mp3`` files (``clean_directory()``)
+  - Check if there are files in the local save directory (``check_directory()``)
+      - Empty:
+        - Warning box user that there are no files to upload, and that the current session will be unlocked
+          - Enable ``Record`` button
+          - Unlock session by enabling ``cross_seeds_check_button``
+      - Files present:
+        - Check if there is a recording in progress (``curr_recording_flag``->``curr_record_prompt``); if so, prompt user whether they are sure they want to save the recording
+          - **Yes**:
+            - Prompt user whether they want to upload to Google Drive; if so, list files to be uploaded and prompt user whether they want to upload the following files
+              - **Yes**:
+                - Call ``GoogleCloud`` execute command (``exec()``)
+                - Clear UI text box (``text_edit``)
+                - Write date and respective session to UI text box
+                - Print links to UI text box using ``get_links()`` function with ``GoogleCloud`` functions ``get_music_links``, ``get_sermon_links``, ``get_misc_links``
+                - Empty local directory (``empty_directory``)
+                - Message box user that upload was successful
+                - Set ``file_flag`` to ``False`` because there are no files in local directory
+                - Unlock session by enabling ``cross_seeds_check_button``
 4. Restore button states
-    - Enable ``Record`` button (regardless of prompt answers, ``Record`` needs to be enabled; if there is a recording in progress, the correct button will be set to its respective state via ``curr_recording_flag``)
-    - If ``curr_recording_flag``, enable ``Clear/Save`` buttons (recording was not saved)
-       - If ``record_state_flag``, restore ``Record/Pause`` buttons and their respective colors
-    - Enable ``Upload`` button if files saved to upload (``file_flag``->(``update_record_state()``))
-    - Enable ``Local Files`` and ``Copy`` buttons (``enable_local_files_copy()``)
-    - Set ``Upload`` button to Grey
+  - Enable ``Record`` button (regardless of prompt answers, ``Record`` needs to be enabled; if there is a recording in progress, the correct button will be set to its respective state via ``curr_recording_flag``)
+  - If ``curr_recording_flag``, enable ``Clear/Save`` buttons (recording was not saved)
+     - If ``record_state_flag``, restore ``Record/Pause`` buttons and their respective colors
+  - Enable ``Upload`` button if files saved to upload (``file_flag``->(``update_record_state()``))
+  - Enable ``Local Files`` and ``Copy`` buttons (``enable_local_files_copy()``)
+  - Set ``Upload`` button to Grey
 
 ---
 
@@ -352,15 +352,15 @@
 **Pseudocode**:
 
 1. UI changes
-    - Set ``Local Files`` button color to Blue
+  - Set ``Local Files`` button color to Blue
 3. Execute
-    - Check whether the path exists (``os.path.exists(*path*)``)
-      - **Yes**:
-        - Open local save directory window (``subprocess.run(['open', *path*]``) 
-      - **No**:
-        - Warning box user that the local save path is invalid and to reconfigure
+  - Check whether the path exists (``os.path.exists(*path*)``)
+    - **Yes**:
+      - Open local save directory window (``subprocess.run(['open', *path*]``) 
+    - **No**:
+      - Warning box user that the local save path is invalid and to reconfigure
 4. UI changes
-    - Set ``Local Files`` button color to Grey
+  - Set ``Local Files`` button color to Grey
 
 ---
 
@@ -375,12 +375,12 @@
 **Pseudocode**:
 
 1. UI changes
-    - Set ``Copy`` button color to Blue
+  - Set ``Copy`` button color to Blue
 2. Execute
-    - Call QTextEdit function ``selectAll()``
-    - Call QTextEdit function ``copy()``
+  - Call QTextEdit function ``selectAll()``
+  - Call QTextEdit function ``copy()``
 3. UI changes
-    - Set ``Copy`` button color to Grey
+  - Set ``Copy`` button color to Grey
   
 ---
 
@@ -540,36 +540,36 @@ One would think ``state == cross_seeds_check_box.isChecked()`` would return ``Tr
 
 **Pseudocode**:
 
-1. Execute
-   - Check whether there is more than 1 file in ``list``
-     - **True**:
-       - Create a varibale ``count`` and initialize it to ``int`` value ``0``
-       - Check whether the index value is the start of ``list``, the end of ``list``, or in the middle of ``list``
-         - **Start**:
-           - Check whether the title of this file matches the file of the next index
-             - **True**:
-               - Print to UI text box, appending alphabetic character of index ``count``
-               - Increment ``count``
-             - **False**:
-               - Print to UI text box normally
-         - **End**:
-           - Check whether the title of this file matches the file previously
-             - **True**:
-               - Print to UI text box, appending alphabetic character of index ``count``
-             - **False**:
-               - Print to UI text box normally
-         - **Middle**:
-           - Check whether the title of this file does not match the file previously (indicates a new file)
-             - **True**:
-               - Set ``count`` to ``0``
-           - Check whether the title of this file matches the previous file or whether the title of this file matches the next file
-             - **True**: 
-               - Print to UI text box, appending alphabetic character of index ``count``
-               - Increment ``count``
-             - **False**:
-               - Print to UI text box normally  
-     - **False**:
-       - Print single file to UI text box normally
+Execute
+  - Check whether there is more than 1 file in ``list``
+    - **True**:
+      - Create a varibale ``count`` and initialize it to ``int`` value ``0``
+      - Check whether the index value is the start of ``list``, the end of ``list``, or in the middle of ``list``
+        - **Start**:
+          - Check whether the title of this file matches the file of the next index
+            - **True**:
+              - Print to UI text box, appending alphabetic character of index ``count``
+              - Increment ``count``
+            - **False**:
+              - Print to UI text box normally
+        - **End**:
+          - Check whether the title of this file matches the file previously
+            - **True**:
+              - Print to UI text box, appending alphabetic character of index ``count``
+            - **False**:
+              - Print to UI text box normally
+        - **Middle**:
+          - Check whether the title of this file does not match the file previously (indicates a new file)
+            - **True**:
+              - Set ``count`` to ``0``
+          - Check whether the title of this file matches the previous file or whether the title of this file matches the next file
+            - **True**: 
+              - Print to UI text box, appending alphabetic character of index ``count``
+              - Increment ``count``
+            - **False**:
+              - Print to UI text box normally  
+    - **False**:
+      - Print single file to UI text box normally
       
 **Developer Notes**: Who would have thought there would be an algorithms problem in this simple app? I believe this problem could have been brute forced, but I wanted to make an efficient solution.
 - Time Complexity: ``O(n)``, Space Complexity: ``O(1)``
