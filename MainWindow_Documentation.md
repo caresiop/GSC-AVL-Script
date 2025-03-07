@@ -12,6 +12,17 @@
 - [``copy()``](#copy)
 
 [Helper Functions](#helper-functions)
+- [``check_box_update()``](#check_box_update)
+- [``disable_buttons()``](#disable_buttons)
+- [``update_record_state()``](#update_record_state)
+- [``update_upload_state()``](#update_upload_state)
+- [``enable_local_files_copy()``](#enable_local_files)
+- [``list_files_box()``](#list_files_box)
+- [``get_links()``](#get_links)
+- [``clean_directory()``](#clean_directory)
+- [``empty_directory()``](#empty_directory)
+- [``check_directory()``](#check_directory)
+
 
 ---
 
