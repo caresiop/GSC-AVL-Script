@@ -212,6 +212,7 @@ class MainWindow(QMainWindow):
         self.update_upload_state()
         self.enable_local_files_copy()
 
+
     # Pause the recording
     def pause(self):
         self.text_edit.insertPlainText(str(datetime.datetime.now().strftime("%H:%M:%S")) + ": Pause pressed\n")
@@ -232,6 +233,7 @@ class MainWindow(QMainWindow):
         self.update_upload_state()
         self.enable_local_files_copy()
 
+
     # Clear the recording
     def clear(self):
         self.text_edit.insertPlainText(str(datetime.datetime.now().strftime("%H:%M:%S")) + ": Clear pressed\n")
@@ -249,7 +251,6 @@ class MainWindow(QMainWindow):
             self.curr_recording_flag = False
 
             self.record_button.setEnabled(True)
-            self.pause_button.setEnabled(False)
 
             self.text_edit.insertPlainText(str(datetime.datetime.now().strftime("%H:%M:%S")) + ": Recording cleared\n")
 
@@ -326,7 +327,6 @@ class MainWindow(QMainWindow):
             else:
                 self.text_edit.insertPlainText("Starting \'GSC\' Session\n")
 
-            self.record_button.setEnabled(True)
             self.cross_seeds_check_box.setEnabled(True)
 
         elif self.curr_record_prompt_box():
@@ -359,8 +359,7 @@ class MainWindow(QMainWindow):
 
                 self.cross_seeds_check_box.setEnabled(True)
 
-            self.record_button.setEnabled(True)
-        
+        self.record_button.setEnabled(True)
         self.update_record_state()
         self.update_upload_state()
         self.enable_local_files_copy()
@@ -368,8 +367,24 @@ class MainWindow(QMainWindow):
         self.upload_button.setStyleSheet("background-color: grey; padding: 3px; border-radius: 5px;")
 
 
+    def open_directory(self):
+        self.local_button.setStyleSheet("background-color: dodgerblue; padding: 3px; border-radius: 5px;")
+
+        path = config['local']['save_path']
+        try:
+            if not os.path.exists(path):
+                raise FileNotFoundError(f"Directory not found: {path}")
+            subprocess.run(["open", path])
+        except FileNotFoundError as e:
+            print("Uh oh\n")
+
+        self.local_button.setStyleSheet("background-color: grey; padding: 3px; border-radius: 5px;")
+
+
     # Copy text on textedit to clipboard
     def copy(self):
+        self.copy_button.setStyleSheet("background-color: dodgerblue; padding: 3px; border-radius: 5px;")
+
         self.text_cursor = self.text_edit.textCursor()
 
         self.text_edit.selectAll()
@@ -378,14 +393,7 @@ class MainWindow(QMainWindow):
         self.text_cursor.clearSelection()
         self.text_edit.setTextCursor(self.text_cursor)
 
-    def open_directory(self):
-        path = config['local']['save_path']
-        try:
-            if not os.path.exists(path):
-                raise FileNotFoundError(f"Directory not found: {path}")
-            subprocess.run(["open", path])
-        except FileNotFoundError as e:
-            print("Uh oh\n")
+        self.copy_button.setStyleSheet("background-color: grey; padding: 3px; border-radius: 5px;")
 
     """ Helper functions ================================================================================================================================================================"""
 
