@@ -348,9 +348,6 @@ class MainWindow(QMainWindow):
 
         elif self.curr_record_prompt_box():
             if self.user_prompt_box("Google Drive Prompt", "Upload to Google Drive?") and self.user_prompt_box("Local files", "The following files will be uploaded:\n\n" + self.list_files_box() + "\nWould you like to continue?"):
-                self.clean_directory()
-                self.check_directory()
-                
                 # Google Drive Upload
                 self.google_cloud_service.exec()
 
