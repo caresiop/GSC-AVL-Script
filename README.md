@@ -48,7 +48,7 @@ Set Up
 ### ``Google Cloud``
 Tutorial: *https://www.youtube.com/watch?v=6bzzpda63H0*
 - *https://console.cloud.google.com*
-- Download client JSON file, rename it, add it to directory
+- Download client ``JSON`` file, rename it, add it to local directory
 - Add a new ``Test User`` with a usable ``Gmail`` account
 
       Sidebar -> APIs & Services -> OAuth consent screen -> Audience -> Test Users
