@@ -4,6 +4,12 @@
 
 [Button Functions](#button-functions)
 - [``record()``](#record)
+- [``pause()``](#pause)
+- [``clear()``](#clear)
+- [``save()``](#save)
+- [``upload()``](#upload)
+- [``open_directory()``](#open_directory)
+- [``copy()``](#copy)
 
 [Helper Functions](#helper-functions)
 
