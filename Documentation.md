@@ -67,7 +67,7 @@
 
     **Description**: ``True`` = files in local save directory, ``False`` = empty local save directory
 
-- cross_seeds_flag
+- ``cross_seeds_flag``
 
     **Default**: ``False``
 
