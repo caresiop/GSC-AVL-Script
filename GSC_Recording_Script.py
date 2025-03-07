@@ -5,10 +5,11 @@ import sys
 import time
 import subprocess
 
-from config import config
 from send2trash import send2trash
 from PyQt5.QtWidgets import QApplication, QMainWindow, QCheckBox, QComboBox, QHBoxLayout, QVBoxLayout, QWidget, QPushButton, QTextEdit, QMessageBox
 from PyQt5.QtCore import Qt
+
+from config import config
 from Audacity import *
 from GoogleCloud import *
 
