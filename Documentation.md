@@ -17,9 +17,9 @@
 - [``upload()``](#upload)
 - [``open_directory()``](#open_directory)
 - [``copy()``](#copy)
+- [``check_box_update()``](#check_box_update)
 
 [Helper Functions](#helper-functions)
-- [``check_box_update()``](#check_box_update)
 - [``disable_buttons()``](#disable_buttons)
 - [``update_record_state()``](#update_record_state)
 - [``update_upload_state()``](#update_upload_state)
@@ -48,10 +48,10 @@
 
 **Description**: Checks whether there are files in local save directory from a previous session; if so, restores session
 
-**UI button states**:
+**UI states**:
 - **Enabled**: ``None``
 - **Disabled**: ``None``
-- **Conditional**: ``Cross Seeds`` check box, ``Upload``
+- **Conditional**: ``Cross Seeds``, ``Upload``
 
 **Pseudocode**:
 
@@ -141,24 +141,24 @@
 
 **Description**: Calls ``Audacity`` command ``record_audio()``
 
-**UI button states**:
+**UI states**:
 - **Enabled**: ``Pause``, ``Local Files``, ``Copy``
 - **Disabled**: ``Record``
 - **Conditional**: ``Clear/Save`` (``curr_recording_flag``->``update_record_state()``), ``Upload`` (``file_flag``->``update_upload_state()``)
 
 **Pseudocode**:
 
-1. User notification
+1. **User notification**
   - Notify user that ``record()`` has been called
-2. UI changes
+2. **UI changes**
   - If ``Pause`` button color is Yellow, set the ``Pause`` button color to Grey
   - Set ``Record`` button color to Green
   - Disable all buttons (``disable_buttons()``) so no new functions can be queued
-3. Execute
+3. **Execute**
   - Call Audacity record command (``record_audio()``)
   - Set ``curr_recording_flag`` to ``True`` (there is currently a recording in progress)
   - Set ``record_state_flag`` to ``True`` (currently in ``record`` state)
-4. Restore button states
+4. **Restore UI states**
   - Disable ``Record`` button
   - Enable ``Pause`` button
   - Enable ``Upload`` button if files saved to upload (``file_flag``->``update_record_state()``)
@@ -174,23 +174,23 @@
 
 **Description**: Calls ``Audacity`` command ``pause_audio()``
 
-**UI button states**:
+**UI states**:
 - **Enabled**: ``Record``, ``Local Files``, ``Copy``
 - **Disabled**: ``Pause``
 - **Conditional**: ``Clear/Save`` (``curr_recording_flag``-> ``update_record_state()``), ``Upload`` (``file_flag``-> ``update_upload_state()``)
 
 **Pseudocode**:
 
-1. User notification
+1. **User notification**
   - Notify user that ``pause()`` has been called
-2. UI changes
+2. **UI changes**
   - If ``Record`` button color is Green, set the ``Record`` button color to Grey
   - Set ``Pause`` button color to Yellow
   - Disable all buttons (``disable_buttons()``) so no new functions can be queued
-3. Execute
+3. **Execute**
   - Call Audacity record command (``stop_audio()``)
   - Set ``record_state_flag`` to ``False`` (currently in ``pause`` state)
-4. Restore button states
+4. **Restore UI states**
   - Disable ``Pause`` button
   - Enable ``Record`` button
   - Enable ``Upload`` button if files saved to upload (``file_flag``->``update_record_state()``)
@@ -206,7 +206,7 @@
 
 **Description**: Calls ``Audacity`` command ``clear_audio()``
 
-**UI button states**:
+**UI states**:
   - **Prompt**:
     - **Yes**:
       - **Enabled**: ``Record``, ``Local Files``, ``Copy``
@@ -219,20 +219,20 @@
   
 **Pseudocode**:
 
-1. User notification
+1. **User notification**
   - Notify user that ``clear()`` has been called
-2. UI changes
+2. **UI changes**
   - Set ``Record/Pause`` button colors to Grey
   - Set ``Clear`` button to Red
   - Disable all buttons (``disable_buttons()``) so no new functions can be queued
-3. Execute
+3. **Execute**
   - Prompt user whether they are sure they want to clear the recording
     - **Yes**:
       - Call Audacity record command (``clear_audio()``)
       - Set ``curr_recording_flag`` to ``False`` (there is currently no recording in progress)
       - Enable ``Record`` button
       - Notify user that recording has been cleared
-4. Restore button states
+4. **Restore UI states**
   - If ``curr_recording_flag``, enable ``Clear/Save`` buttons (recording was not cleared)
      - If ``record_state_flag``, restore ``Record/Pause`` buttons and their respective colors
   - Enable ``Upload`` button if files saved to upload (``file_flag``->(``update_record_state()``))
@@ -249,8 +249,8 @@
 
 **Description**: Calls ``Audacity`` command ``save_audio()``
 
-**UI button states**:
-  - Prompt:
+**UI states**:
+  - **Prompt**:
     - **Yes**:
       - **Enabled**: ``Record``, ``Local Files``, ``Copy``
       - **Disabled**: ``Pause``,  ``Clear``, ``Save``
@@ -262,14 +262,14 @@
   
 **Pseudocode**:
 
-1. User notification
+1. **User notification**
   - Notify user that ``save()`` has been called
-2. UI changes
+2. **UI changes**
   - Set ``Record/Pause`` button colors to Grey
   - Set ``Save`` button to Blue
   - Disable all buttons (``disable_buttons()``) so no new functions can be queued
     - *Note*: If first save of session is successful, user will be locked into their respective session ('GSC' or 'Cross Seeds') to ensure that session files are not mixed
-3. Execute
+3. **Execute**
   - Prompt user whether they are sure they want to save the recording
     - **Yes**:
       - Grab text from the drop-down menu (``combo_box``)
@@ -288,7 +288,7 @@
     - **No**:
       - Enable ``Save`` button
       - If there is no file that was saved (``file_flag``), unlock session by enabling ``cross_seeds_check_button``
-4. Restore button states
+4. **Restore UI states**
   - If ``curr_recording_flag``, enable ``Clear/Save`` buttons (recording was not saved)
      - If ``record_state_flag``, restore ``Record/Pause`` buttons and their respective colors
   - Enable ``Upload`` button if files saved to upload (``file_flag``->(``update_record_state()``))
@@ -305,8 +305,8 @@
 
 **Description**: Calls ``GoogleCloud`` command ``exec()`` and prints session ``music_links``, ``sermon_links``, ``misc_links`` onto UI text box
 
-**UI button states**:
-  - Prompt:
+**UI states**:
+  - **Prompt**:
     - **Yes**:
       - **Enabled**: ``Record``, ``Local Files``, ``Copy``
       - **Disabled**: ``Pause``,  ``Clear``, ``Save``
@@ -318,13 +318,13 @@
   
 **Pseudocode**:
 
-1. User notification
+1. **User notification**
   - Notify user that ``upload()`` has been called
-2. UI changes
+2. **UI changes**
   - Set ``Record/Pause`` button colors to Grey
   - Set ``Upload`` button to Blue
   - Disable all buttons (``disable_buttons()``) so no new functions can be queued
-3. Execute
+3. **Execute**
   - Clean local save directory to only hold ``.mp3`` files (``clean_directory()``)
   - Check if there are files in the local save directory (``check_directory()``)
       - Empty:
@@ -344,7 +344,7 @@
                 - Message box user that upload was successful
                 - Set ``file_flag`` to ``False`` because there are no files in local directory
                 - Unlock session by enabling ``cross_seeds_check_button``
-4. Restore button states
+4. **Restore UI states**
   - Enable ``Record`` button (regardless of prompt answers, ``Record`` needs to be enabled; if there is a recording in progress, the correct button will be set to its respective state via ``curr_recording_flag``)
   - If ``curr_recording_flag``, enable ``Clear/Save`` buttons (recording was not saved)
      - If ``record_state_flag``, restore ``Record/Pause`` buttons and their respective colors
@@ -364,15 +364,15 @@
 
 **Pseudocode**:
 
-1. UI changes
+1. **UI changes**
   - Set ``Local Files`` button color to Blue
-3. Execute
+2. **Execute**
   - Check whether the path exists (``os.path.exists(*path*)``)
     - **Yes**:
       - Open local save directory window (``subprocess.run(['open', *path*]``) 
     - **No**:
       - Warning box user that the local save path is invalid and to reconfigure
-4. UI changes
+3. **UI changes**
   - Set ``Local Files`` button color to Grey
 
 ---
@@ -394,10 +394,8 @@
   - Call QTextEdit function ``copy()``
 3. UI changes
   - Set ``Copy`` button color to Grey
-  
----
 
-## Helper Functions
+---
 
 ### ``check_box_update()`` 
 
@@ -433,6 +431,8 @@ One would think ``state == cross_seeds_check_box.isChecked()`` would return ``Tr
   
 ---
 
+## Helper Functions
+
 ### ``disable_buttons()`` 
 
 - **Parameters**: ``None``
@@ -441,7 +441,7 @@ One would think ``state == cross_seeds_check_box.isChecked()`` would return ``Tr
 
 **Description**: Disables all buttons
 
-**UI button states**:
+**UI states**:
   - **Enabled**: ``None``
   - **Disabled**: ``Cross Seeds``, ``Record``, ``Pause``, ``Clear``, ``Save``, ``Upload``, ``Local Files``, ``Copy``
   - **Conditional**: ``None``
@@ -460,7 +460,7 @@ One would think ``state == cross_seeds_check_box.isChecked()`` would return ``Tr
 
 **Description**: Checks whether there is a recording in progress and which state the recording is in (``Record/Pause``)
 
-**UI button states**:
+**UI states**:
   - **Enabled**: ``None``
   - **Disabled**: ``None``
   - **Conditional**: ``Record/Pause, Clear/Save`` (``curr_recording_flag``, ``record_state_flag``)
@@ -492,7 +492,7 @@ One would think ``state == cross_seeds_check_box.isChecked()`` would return ``Tr
 
 **Description**: Checks whether there are files in the local directory, and if so, enables ``Upload`` button
 
-**UI button states**:
+**UI states**:
   - **Enabled**: ``None``
   - **Disabled**: ``None``
   - **Conditional**: ``Upload`` (``file_flag``)
@@ -513,7 +513,7 @@ One would think ``state == cross_seeds_check_box.isChecked()`` would return ``Tr
 
 **Description**: Enables ``Local Files/Copy`` buttons
 
-**UI button states**:
+**UI states**:
   - **Enabled**: ``Local Files``, ``Copy``
   - **Disabled**: ``None``
   - **Conditional**: ``None``
