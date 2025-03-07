@@ -98,6 +98,7 @@ Tutorial: *https://www.youtube.com/watch?v=6bzzpda63H0*
 
       python3 GSC_Recording_Script.py
 
+
 <p align="center">
       <img src="https://github.com/caresiop/GSC-AVL-Script/blob/main/UI.png?raw=true" width="387" height="566" />
 </p>
