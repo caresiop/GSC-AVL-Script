@@ -23,6 +23,12 @@
 - [``empty_directory()``](#empty_directory)
 - [``check_directory()``](#check_directory)
 
+[Message Box Functions](#message-box-functions)
+- [``open_message_box()``](#open_message_box)
+- [``create_message_box()``](#create_message_box)
+- [``create_warning_box()``](#create_warning_box)
+- [``user_prompt_box()``](#user_prompt_box)
+- [``curr_record_prompt()``](#curr_record_prompt)
 
 ---
 
@@ -380,7 +386,7 @@ One would think ``state == cross_seeds_check_box.isChecked()`` would return ``Tr
 **Pseudocode**:
 
 1. Execute
-   - Check ``curr_recordig_flag`` to see if there is currently a recording in session
+   - Check ``curr_recording_flag`` to see if there is currently a recording in session
      - **True**:
        - Enable ``Clear/Save`` buttons
        - Check ``record_state_flag`` to see whether ``Record`` is active or ``Pause`` is active
@@ -450,16 +456,16 @@ One would think ``state == cross_seeds_check_box.isChecked()`` would return ``Tr
 
 - **Return**: ``string text``
 
-**Description**: Checks local directory and returns all files names in a formatted printable string
+**Description**: Checks local directory and returns all files names in a formatted printable ``string``
 
 **Pseudocode**:
 
 1. Execute
-   - Grab file names as list from local save directory (``os.listdir(*path*)``)
-   - Sort the list into alphabetical/numerical order
-   - Create an empty string variable
-   - Iterate through the list and append file name to string variable on each iteration
-   - Return string variable
+   - Grab file names as ``list`` from local save directory (``os.listdir(*path*)``)
+   - Sort ``list`` into alphabetical/numerical order
+   - Create an empty ``string`` variable
+   - Iterate through ``list`` and append file name to ``string`` variable on each iteration
+   - Return ``string`` variable
   
 ---
 
@@ -469,26 +475,26 @@ One would think ``state == cross_seeds_check_box.isChecked()`` would return ``Tr
 
 - **Return**: None
 
-**Description**: Iterates through passed list and prints out each indexed files's name and link into the UI text box; if there are duplicates of the same title, it will append a letter of the alphabet, starting with 'a', and will increment as long as the name is the same
+**Description**: Iterates through passed ``list`` and prints out each indexed files's ``name`` and ``link`` into the UI text box; if there are duplicates of the same title, append a letter of the alphabetic to the end of the title, starting with 'a'; increment and append alphabetic character as long as ``name`` is the same
 
 **Pseudocode**:
 
 1. Execute
-   - Check whether there is more than 1 file in the list
+   - Check whether there is more than 1 file in ``list``
      - **True**:
-       - Create a varibale ``count`` and initialize it to int value ``0``
-       - Check whether the index value is the start of the list, the end of the list, or in the middle
+       - Create a varibale ``count`` and initialize it to ``int`` value ``0``
+       - Check whether the index value is the start of ``list``, the end of ``list``, or in the middle of ``list``
          - **Start**:
            - Check whether the title of this file matches the file of the next index
              - **True**:
-               - Print to UI text box, appending alphabet character of index ``count``
+               - Print to UI text box, appending alphabetic character of index ``count``
                - Increment ``count``
              - **False**:
                - Print to UI text box normally
          - **End**:
            - Check whether the title of this file matches the file previously
              - **True**:
-               - Print to UI text box, appending alphabet character of index ``count``
+               - Print to UI text box, appending alphabetic character of index ``count``
              - **False**:
                - Print to UI text box normally
          - **Middle**:
@@ -499,7 +505,7 @@ One would think ``state == cross_seeds_check_box.isChecked()`` would return ``Tr
                - None
            - Check whether the title of this file matches the previous file or whether the title of this file matches the next file
              - **True**: 
-               - Print to UI text box, appending alphabet character of index ``count``
+               - Print to UI text box, appending alphabetic character of index ``count``
                - Increment ``count``
              - **False**:
                - Print to UI text box normally  
@@ -567,3 +573,51 @@ One would think ``state == cross_seeds_check_box.isChecked()`` would return ``Tr
 
 ---
 
+## Message Box Functions
+
+### ``open_message_box()`` 
+
+- **Parameters**: None
+
+- **Return**: None
+
+**Description**: Start up message box notifying user of necessary Audacity configurations (hard coded)
+
+---
+
+### ``create_message_box()`` 
+
+- **Parameters**: ``string message``
+
+- **Return**: None
+
+**Description**: Message box that displays passed ``string``
+
+---
+
+### ``user_prompt_box()`` 
+
+- **Parameters**: ``string text``, ``string informative_text``
+
+- **Return**: ``bool``
+
+**Description**: User prompt that takes passed ``text`` for window title and passed ``informative_text`` for window info; returns ``True`` if user answers ``Yes`` and returns ``False`` if user answers ``No``
+
+---
+
+### ``curr_record_prompt_box()`` 
+
+- **Parameters**: None
+
+- **Return**: ``bool``
+
+**Description**: Message box that prompts user if there is a recording in progress
+
+**Pseudocode**:
+
+1. Execute
+   - Check ``curr_recording_flag``
+     - **True**:
+       - return (Prompt user whether they wish to continue)
+     - **False**:
+       - return ``True`` 
