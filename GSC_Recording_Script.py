@@ -84,14 +84,14 @@ class MainWindow(QMainWindow):
         self.copy_button.clicked.connect(self.copy)
 
         # Cross Seeds Checkbox
-        self.cross_seeds_check_box = QCheckBox('Cross Seeds', self)
+        self.cross_seeds_check_box = QCheckBox("Cross Seeds", self)
         self.cross_seeds_check_box.stateChanged.connect(self.check_box_update)
 
         # Drop down menu
         # https://www.pythonguis.com/docs/qcombo_box/
         self.combo_box = QComboBox()
         self.combo_box.setFixedSize(250, 40)
-        self.combo_box.addItems(['Music Pt. 1', 'Sermon', 'Music Pt. 2'])
+        self.combo_box.addItems(["Music Pt. 1", "Sermon", "Music Pt. 2"])
 
         # Drop down menu editing
         self.combo_box.setEditable(True)
@@ -140,16 +140,16 @@ class MainWindow(QMainWindow):
         self.clean_directory()
 
         if self.check_directory():
-            file_names = os.listdir(config['local']['save_path'])
+            file_names = os.listdir(config["local"]["save_path"])
 
-            service = 'GSC'
-            if 'CS' in file_names[0]:
+            service = "GSC"
+            if "CS" in file_names[0]:
                 self.cross_seeds_flag = True
-                service = 'Cross Seeds'
+                service = "Cross Seeds"
 
             self.create_warning_box("There are currently \'" + service + "\' files in the local directory:\n\n" + self.list_files_box() + "\nPlease check and clear local directory, or upload to Google Drive before recording.")
             
-            if service == 'GSC':
+            if service == "GSC":
                 self.text_edit.insertPlainText("\'GSC\' Session\n")
                 self.create_message_box("Continuing previous \'GSC\' session")
             else:
@@ -296,9 +296,9 @@ class MainWindow(QMainWindow):
                 file_name = self.audacity_service.PATH + "/" + indexed_name
 
                 # Renaming files
-                service = 'GSC'
+                service = "GSC"
                 if self.cross_seeds_flag:
-                    service = 'CS'
+                    service = "CS"
                 if os.path.exists(file_name):
                     os.rename(file_name, self.audacity_service.PATH + "/" + self.date + " " + str(datetime.datetime.now().strftime("%H.%M.%S")) + " " + service + " " + text_name + ".mp3")
 
@@ -384,7 +384,7 @@ class MainWindow(QMainWindow):
     def open_directory(self):
         self.local_button.setStyleSheet("background-color: dodgerblue; padding: 3px; border-radius: 5px;")
 
-        path = config['local']['save_path']
+        path = config["local"]["save_path"]
         try:
             if not os.path.exists(path):
                 raise FileNotFoundError(f"Directory not found: {path}")
@@ -472,7 +472,7 @@ class MainWindow(QMainWindow):
     
     # Pre-Upload list files to user
     def list_files_box(self):
-        file_names = os.listdir(config['local']['save_path'])
+        file_names = os.listdir(config["local"]["save_path"])
         file_names.sort()
 
         temp = ""
@@ -501,40 +501,40 @@ class MainWindow(QMainWindow):
             count = 0
             for i in range(len(links)):
                 file = links[i]
-                mp3 = len(file['name']) - 4
-                title = file['name'][start_index:mp3]
-                link = file['link']
+                mp3 = len(file["name"]) - 4
+                title = file["name"][start_index:mp3]
+                link = file["link"]
 
                 # Edge case: first element
                 if i == 0:
                     # Check element title after this element only
-                    if file['name'][start_index:] == links[i + 1]['name'][start_index:]:
-                        self.text_edit.insertPlainText(title + '-' + ascii_upper[count] + ": " + link + "\n\n")
+                    if file["name"][start_index:] == links[i + 1]["name"][start_index:]:
+                        self.text_edit.insertPlainText(title + "-" + ascii_upper[count] + ": " + link + "\n\n")
                         count += 1
                     else:
                         self.text_edit.insertPlainText(title + ": " + link + "\n\n")
                 # Edge case: last element
                 elif i == len(links) - 1:
                     # Check element title before this element only
-                    if file['name'][start_index:] == links[i - 1]['name'][start_index:]:
-                        self.text_edit.insertPlainText(title + '-' + ascii_upper[count] + ": " + link + "\n\n")
+                    if file["name"][start_index:] == links[i - 1]["name"][start_index:]:
+                        self.text_edit.insertPlainText(title + "-" + ascii_upper[count] + ": " + link + "\n\n")
                     else:
                         self.text_edit.insertPlainText(title + ": " + link + "\n\n")
                 else:
                     # Check element title before to see if current element title is new
-                    if file['name'][start_index:] != links[i - 1]['name'][start_index:]:
+                    if file["name"][start_index:] != links[i - 1]["name"][start_index:]:
                         count = 0
                     # Check element title after current element
-                    if file['name'][start_index:] == links[i + 1]['name'][start_index:] or file['name'][start_index:] == links[i - 1]['name'][start_index:]:
-                        self.text_edit.insertPlainText(title + '-' + ascii_upper[count] + ": " + link + "\n\n")
+                    if file["name"][start_index:] == links[i + 1]["name"][start_index:] or file["name"][start_index:] == links[i - 1]["name"][start_index:]:
+                        self.text_edit.insertPlainText(title + "-" + ascii_upper[count] + ": " + link + "\n\n")
                         count += 1
                     else:
                         self.text_edit.insertPlainText(title + ": " + link + "\n\n")
         else:
             file = links[0]
-            mp3 = len(file['name']) - 4
-            title = file['name'][start_index:mp3]
-            link = file['link']
+            mp3 = len(file["name"]) - 4
+            title = file["name"][start_index:mp3]
+            link = file["link"]
             self.text_edit.insertPlainText(title + ": " + link + "\n\n")
 
 
@@ -556,7 +556,7 @@ class MainWindow(QMainWindow):
 
 
     def check_directory(self):
-        file_names = os.listdir(config['local']['save_path'])
+        file_names = os.listdir(config["local"]["save_path"])
         if len(file_names):
             self.file_flag = True
             return True
