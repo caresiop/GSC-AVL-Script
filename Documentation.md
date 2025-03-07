@@ -4,6 +4,8 @@
 
 ## Table of Contents
 
+[Initialization](#initialization)
+
 [Start up](#start-up)
 - [``start_up()``](#start_up)
 - [``open_message_box()``](#open_message_box)
@@ -39,6 +41,41 @@
 - [``curr_record_prompt()``](#curr_record_prompt)
 
 ---
+
+## Initialization
+
+- ``Audacity`` instance
+- ``Google Cloud`` instance
+
+### Flags
+
+- ``curr_recording_flag``
+
+    **Default**: ``False`` 
+
+    **Description**: If ``Record`` or ``Pause`` has been called, the app is 'recording'; flag is set to ``True``; ``False`` after ``Save``
+
+- ``record_state_flag``
+
+    **Default**: ``True``
+
+    **Description**: ``True`` = ``Record``, ``False`` = ``Pause``
+
+- ``file_flag``
+
+    **Default**: ``False``
+
+    **Description**: ``True`` = files in local save directory, ``False`` = empty local save directory
+
+- cross_seeds_flag
+
+    **Default**: ``False``
+
+    **Description**: ``True`` = 'Cross Seeds' session, ``False`` = 'GSC' session (for naming convention and for uploading to correct Google Drive folders)
+
+### ``init_UI()``
+
+**Description**:
 
 ## Start up
 
