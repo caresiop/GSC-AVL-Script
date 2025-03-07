@@ -3,7 +3,7 @@
 **v2.0 changes**
 - ``PyQT5`` GUI
 - ``Google Drive API`` Support
-- 'Cross Seeds' session added
+- ``Cross Seeds`` session added
 
 ## Installation
 
