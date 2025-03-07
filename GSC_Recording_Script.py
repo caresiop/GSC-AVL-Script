@@ -390,7 +390,7 @@ class MainWindow(QMainWindow):
                 raise FileNotFoundError(f"Directory not found: {path}")
             subprocess.run(["open", path])
         except FileNotFoundError as e:
-            print("Uh oh\n")
+            self.create_warning_box("Path to local directory invalid.\nPlease reconfigure path in config file.")
 
         self.local_button.setStyleSheet("background-color: grey; padding: 3px; border-radius: 5px;")
 
