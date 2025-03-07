@@ -3,8 +3,10 @@
 # ``Class MainWindow``
 
 [Button Functions](#button-functions)
-- [record](#record())
+- [record](#record)
+
 [Helper Functions](#helper-functions)
+
 ---
 
 ## Button Functions
