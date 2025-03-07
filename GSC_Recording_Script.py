@@ -32,62 +32,6 @@ class MainWindow(QMainWindow):
 
         self.init_UI()
 
-    """ Start up ================================================================================================================================================================"""
-
-    # Open
-    # If there are files in local directory, notify user
-    def check_local_directory(self):
-        self.clean_directory()
-
-        if self.check_directory():
-            file_names = os.listdir(config['local']['save_path'])
-
-            service = 'GSC'
-            if 'CS' in file_names[0]:
-                self.cross_seeds_flag = True
-                service = 'Cross Seeds'
-
-            self.create_warning_box("There are currently \'" + service + "\' files in the local directory:\n\n" + self.list_files_box() + "\nPlease check and clear local directory, or upload to Google Drive before recording.")
-            
-            if service == 'GSC':
-                self.text_edit.insertPlainText("\'GSC\' Session\n")
-                self.create_message_box("Continuing previous \'GSC\' session")
-            else:
-                self.cross_seeds_check_box.setCheckState(Qt.Checked, True)
-            
-            self.update_upload_state()
-            self.cross_seeds_check_box.setEnabled(False)
-        else:
-            self.text_edit.insertPlainText("Default: \'GSC\' Session\n")
-
-    """ Exit ================================================================================================================================================================"""
-
-    # Close
-    # 1. If there are files that have not been uploaded, notify user
-    # 2. If there is a recording in process, notify user
-    # Exits Audacity too
-    # https://stackoverflow.com/questions/9249500/pyside-pyqt-detect-if-user-trying-to-close-window
-    def closeEvent(self, event):
-        self.clean_directory()
-        self.check_directory()
-
-        if self.file_flag:
-            if self.user_prompt_box("Files in directory", "There are currently files in the local directory to be uploaded:\n\n" + self.list_files_box() + "\nWould you still like to exit?"):
-                self.audacity_service.exit()
-                event.accept()
-            else:
-                event.ignore()
-
-        elif self.curr_recording_flag:
-            if self.user_prompt_box("Recording", "There is currently a recording in process.\n\nWould you still like to exit?"):
-                self.audacity_service.exit()
-                event.accept()
-            else:
-                event.ignore()
-        else:
-            self.audacity_service.exit()
-            event.accept()
-
     """ User Interface ================================================================================================================================================================"""
 
     # Initialize UI
@@ -187,6 +131,62 @@ class MainWindow(QMainWindow):
         container = QWidget()
         container.setLayout(self.v_layout)
         self.setCentralWidget(container)
+
+    """ Start up ================================================================================================================================================================"""
+
+    # Open
+    # If there are files in local directory, notify user
+    def check_local_directory(self):
+        self.clean_directory()
+
+        if self.check_directory():
+            file_names = os.listdir(config['local']['save_path'])
+
+            service = 'GSC'
+            if 'CS' in file_names[0]:
+                self.cross_seeds_flag = True
+                service = 'Cross Seeds'
+
+            self.create_warning_box("There are currently \'" + service + "\' files in the local directory:\n\n" + self.list_files_box() + "\nPlease check and clear local directory, or upload to Google Drive before recording.")
+            
+            if service == 'GSC':
+                self.text_edit.insertPlainText("\'GSC\' Session\n")
+                self.create_message_box("Continuing previous \'GSC\' session")
+            else:
+                self.cross_seeds_check_box.setCheckState(Qt.Checked, True)
+            
+            self.update_upload_state()
+            self.cross_seeds_check_box.setEnabled(False)
+        else:
+            self.text_edit.insertPlainText("Default: \'GSC\' Session\n")
+
+    """ Exit ================================================================================================================================================================"""
+
+    # Close
+    # 1. If there are files that have not been uploaded, notify user
+    # 2. If there is a recording in process, notify user
+    # Exits Audacity too
+    # https://stackoverflow.com/questions/9249500/pyside-pyqt-detect-if-user-trying-to-close-window
+    def closeEvent(self, event):
+        self.clean_directory()
+        self.check_directory()
+
+        if self.file_flag:
+            if self.user_prompt_box("Files in directory", "There are currently files in the local directory to be uploaded:\n\n" + self.list_files_box() + "\nWould you still like to exit?"):
+                self.audacity_service.exit()
+                event.accept()
+            else:
+                event.ignore()
+
+        elif self.curr_recording_flag:
+            if self.user_prompt_box("Recording", "There is currently a recording in process.\n\nWould you still like to exit?"):
+                self.audacity_service.exit()
+                event.accept()
+            else:
+                event.ignore()
+        else:
+            self.audacity_service.exit()
+            event.accept()
 
     """ Button functions ================================================================================================================================================================"""
 
