@@ -134,9 +134,9 @@ class MainWindow(QMainWindow):
 
     """ Start up ================================================================================================================================================================"""
 
-    # Open
+    # Start up
     # If there are files in local directory, notify user
-    def check_local_directory(self):
+    def start_up(self):
         self.clean_directory()
 
         if self.check_directory():
@@ -159,10 +159,17 @@ class MainWindow(QMainWindow):
             self.cross_seeds_check_box.setEnabled(False)
         else:
             self.text_edit.insertPlainText("Default: \'GSC\' Session\n")
+            
+        self.open_message_box()
+
+
+    # Start up message
+    def open_message_box(self):
+        QMessageBox.information(self, "Initial Setup", "Initial Setup:\n\nExport Audio:\nFormat: MP3 Files\nQuality: 320 kbps\n\nAudio Setup:\nPlayback Device: WING\nRecording Device: WING\nRecording Channels: 2 (Stereo)\n")
 
     """ Exit ================================================================================================================================================================"""
 
-    # Close
+    # Exit
     # 1. If there are files that have not been uploaded, notify user
     # 2. If there is a recording in process, notify user
     # Exits Audacity too
@@ -171,19 +178,28 @@ class MainWindow(QMainWindow):
         self.clean_directory()
         self.check_directory()
 
-        if self.file_flag:
+        if self.curr_recording_flag:
+            if self.user_prompt_box("Recording", "There is currently a recording in process.\n\nWould you still like to exit?"):
+                if self.file_flag:
+                    if self.user_prompt_box("Files in directory", "There are currently files in the local directory to be uploaded:\n\n" + self.list_files_box() + "\nWould you still like to exit?"):
+                        self.audacity_service.exit()
+                        event.accept()
+                    else:
+                        event.ignore()
+                        
+                else:
+                    self.audacity_service.exit()
+                    event.accept()
+            else:
+                event.ignore()
+        
+        elif self.file_flag:
             if self.user_prompt_box("Files in directory", "There are currently files in the local directory to be uploaded:\n\n" + self.list_files_box() + "\nWould you still like to exit?"):
                 self.audacity_service.exit()
                 event.accept()
             else:
                 event.ignore()
 
-        elif self.curr_recording_flag:
-            if self.user_prompt_box("Recording", "There is currently a recording in process.\n\nWould you still like to exit?"):
-                self.audacity_service.exit()
-                event.accept()
-            else:
-                event.ignore()
         else:
             self.audacity_service.exit()
             event.accept()
@@ -553,11 +569,6 @@ class MainWindow(QMainWindow):
 
 
     """ Message Boxes ================================================================================================================================================================"""
-    
-    # Startup message
-    def open_message_box(self):
-        QMessageBox.information(self, "Initial Setup", "Initial Setup:\n\nExport Audio:\nFormat: MP3 Files\nQuality: 320 kbps\n\nAudio Setup:\nPlayback Device: WING\nRecording Device: WING\nRecording Channels: 2 (Stereo)\n")
-
 
     # Success message
     def create_message_box(self, message):
@@ -595,8 +606,7 @@ def main():
     app = QApplication(sys.argv)
     window = MainWindow()
     window.show()
-    window.check_local_directory()
-    window.open_message_box()
+    window.start_up()
 
     sys.exit(app.exec_())
 
