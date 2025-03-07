@@ -36,9 +36,9 @@
 
 ### ``record()`` 
 
-- **Parameters**: None
+- **Parameters**: ``None``
 
-- **Return**: None
+- **Return**: ``None``
 
 **Description**: Calls ``Audacity`` command ``record_audio()``
 
@@ -69,9 +69,9 @@
 
 ### ``pause()`` 
 
-- **Parameters**: None
+- **Parameters**: ``None``
 
-- **Return**: None
+- **Return**: ``None``
 
 **Description**: Calls ``Audacity`` command ``pause_audio()``
 
@@ -101,9 +101,9 @@
   
 ### ``clear()`` 
 
-- **Parameters**: None
+- **Parameters**: ``None``
 
-- **Return**: None
+- **Return**: ``None``
 
 **Description**: Calls ``Audacity`` command ``clear_audio()``
 
@@ -115,7 +115,7 @@
       - **Conditional**: ``Upload`` (``file_flag``->``update_upload_state()``)
     - **No**:
       - **Enabled**: ``Clear``, ``Save``, ``Local Files``, ``Copy``
-      - **Disabled**: None
+      - **Disabled**: ``None``
       - **Conditional**: ``Record/Pause, Clear/Save`` (``curr_recording_flag``, ``record_state_flag``->``update_record_state()``)
   
 **Pseudocode**:
@@ -133,8 +133,6 @@
         - Set ``curr_recording_flag`` to ``False`` (there is currently no recording in progress)
         - Enable ``Record`` button
         - Notify user that recording has been cleared
-      - **No**:
-        - None
 4. Restore button states
     - If ``curr_recording_flag``, enable ``Clear/Save`` buttons (recording was not cleared)
        - If ``record_state_flag``, restore ``Record/Pause`` buttons and their respective colors
@@ -146,9 +144,9 @@
 
 ### ``save()`` 
 
-- **Parameters**: None
+- **Parameters**: ``None``
 
-- **Return**: None
+- **Return**: ``None``
 
 **Description**: Calls ``Audacity`` command ``save_audio()``
 
@@ -160,7 +158,7 @@
       - **Conditional**: ``Upload`` (``file_flag``->``update_upload_state()``)
     - **No**:
       - **Enabled**: ``Clear``, ``Save``, ``Local Files``, ``Copy``
-      - **Disabled**: None
+      - **Disabled**: ``None``
       - **Conditional**: ``Record/Pause, Clear/Save`` (``curr_recording_flag``, ``record_state_flag``->``update_record_state()``)
   
 **Pseudocode**:
@@ -171,7 +169,7 @@
     - Set ``Record/Pause`` button colors to Grey
     - Set ``Save`` button to Blue
     - Disable all buttons (``disable_buttons()``) so no new functions can be queued
-      - Note: If first save of session is successful, user will be locked into their respective session ('GSC' or 'Cross Seeds') to ensure that session files are not mixed
+      - *Note*: If first save of session is successful, user will be locked into their respective session ('GSC' or 'Cross Seeds') to ensure that session files are not mixed
 3. Execute
     - Prompt user whether they are sure they want to save the recording
       - **Yes**:
@@ -202,9 +200,9 @@
 
 ### ``upload()`` 
 
-- **Parameters**: None
+- **Parameters**: ``None``
 
-- **Return**: None
+- **Return**: ``None``
 
 **Description**: Calls ``GoogleCloud`` command ``exec()`` and prints session ``music_links``, ``sermon_links``, ``misc_links`` onto UI text box
 
@@ -216,7 +214,7 @@
       - **Conditional**: ``Upload`` (``file_flag``->``update_upload_state()``)
     - **No**:
       - **Enabled**: ``Clear``, ``Save``, ``Local Files``, ``Copy``
-      - **Disabled**: None
+      - **Disabled**: ``None``
       - **Conditional**: ``Record/Pause, Clear/Save`` (``curr_recording_flag``, ``record_state_flag``->``update_record_state()``)
   
 **Pseudocode**:
@@ -228,8 +226,8 @@
     - Set ``Upload`` button to Blue
     - Disable all buttons (``disable_buttons()``) so no new functions can be queued
 3. Execute
-    - Clean local_folder to only hold ``.mp3`` files (``clean_directory()``)
-    - Check if there are files in the directory (``check_directory()``)
+    - Clean local save directory to only hold ``.mp3`` files (``clean_directory()``)
+    - Check if there are files in the local save directory (``check_directory()``)
         - Empty:
           - Warning box user that there are no files to upload, and that the current session will be unlocked
             - Enable ``Record`` button
@@ -247,10 +245,6 @@
                   - Message box user that upload was successful
                   - Set ``file_flag`` to ``False`` because there are no files in local directory
                   - Unlock session by enabling ``cross_seeds_check_button``
-                - **No**:
-                  - None 
-            - **No**:
-              - None
 4. Restore button states
     - Enable ``Record`` button (regardless of prompt answers, ``Record`` needs to be enabled; if there is a recording in progress, the correct button will be set to its respective state via ``curr_recording_flag``)
     - If ``curr_recording_flag``, enable ``Clear/Save`` buttons (recording was not saved)
@@ -263,14 +257,11 @@
 
 ### ``open_directory()`` 
 
-- **Parameters**: None
+- **Parameters**: ``None``
 
-- **Return**: None
+- **Return**: ``None``
 
 **Description**: Calls ``subprocess`` command to open local save directory window
-
-**UI button states**:
-  - None
 
 **Pseudocode**:
 
@@ -289,14 +280,11 @@
 
 ### ``copy()`` 
 
-- **Parameters**: None
+- **Parameters**: ``None``
 
-- **Return**: None
+- **Return**: ``None``
 
 **Description**: Copies text in UI text box into clipboard
-
-**On-click UI button states**:
-  - None
 
 **Pseudocode**:
 
@@ -316,12 +304,9 @@
 
 - **Parameters**: ``bool start_up = None``
 
-- **Return**: None
+- **Return**: ``None``
 
 **Description**: Check mark box function; message box and notifies user when state/session is changed
-
-**On-click UI button states**:
-  - None
 
 **Pseudocode**:
 
@@ -352,16 +337,16 @@ One would think ``state == cross_seeds_check_box.isChecked()`` would return ``Tr
 
 ### ``disable_buttons()`` 
 
-- **Parameters**: None
+- **Parameters**: ``None``
 
-- **Return**: None
+- **Return**: ``None``
 
 **Description**: Disables all buttons
 
 **UI button states**:
-  - **Enabled**: None
+  - **Enabled**: ``None``
   - **Disabled**: ``Cross Seeds``, ``Record``, ``Pause``, ``Clear``, ``Save``, ``Upload``, ``Local Files``, ``Copy``
-  - **Conditional**: None
+  - **Conditional**: ``None``
 
 **Pseudocode**:
 
@@ -372,15 +357,15 @@ One would think ``state == cross_seeds_check_box.isChecked()`` would return ``Tr
 
 ### ``update_record_state()`` 
 
-- **Parameters**: None
+- **Parameters**: ``None``
 
-- **Return**: None
+- **Return**: ``None``
 
 **Description**: Checks whether there is a recording in progress and which state the recording is in (``Record/Pause``)
 
 **UI button states**:
-  - **Enabled**: None
-  - **Disabled**: None
+  - **Enabled**: ``None``
+  - **Disabled**: ``None``
   - **Conditional**: ``Record/Pause, Clear/Save`` (``curr_recording_flag``, ``record_state_flag``)
 
 **Pseudocode**:
@@ -400,22 +385,20 @@ One would think ``state == cross_seeds_check_box.isChecked()`` would return ``Tr
            - Set ``Record`` button to Grey
            - Enable ``Pause`` button
            - Disable ``Record`` button
-     - **False**:
-       - None
 
 ---
 
 ### ``update_upload_state()`` 
 
-- **Parameters**: None
+- **Parameters**: ``None``
 
-- **Return**: None
+- **Return**: ``None``
 
 **Description**: Checks whether there are files in the local directory, and if so, enables ``Upload`` button
 
 **UI button states**:
-  - **Enabled**: None
-  - **Disabled**: None
+  - **Enabled**: ``None``
+  - **Disabled**: ``None``
   - **Conditional**: ``Upload`` (``file_flag``)
 
 **Pseudocode**:
@@ -424,23 +407,21 @@ One would think ``state == cross_seeds_check_box.isChecked()`` would return ``Tr
    - Check ``file_flag`` to see if there are files in the local directory
      - **True**:
        - Enable ``Upload`` button
-     - **False**:
-       - None
       
 --- 
 
 ### ``enable_local_files_copy()`` 
 
-- **Parameters**: None
+- **Parameters**: ``None``
 
-- **Return**: None
+- **Return**: ``None``
 
 **Description**: Enables ``Local Files/Copy`` buttons
 
 **UI button states**:
   - **Enabled**: ``Local Files``, ``Copy``
-  - **Disabled**: None
-  - **Conditional**: None
+  - **Disabled**: ``None``
+  - **Conditional**: ``None``
 
 **Pseudocode**:
 
@@ -452,7 +433,7 @@ One would think ``state == cross_seeds_check_box.isChecked()`` would return ``Tr
 
 ### ``list_files_box()`` 
 
-- **Parameters**: None
+- **Parameters**: ``None``
 
 - **Return**: ``string text``
 
@@ -473,7 +454,7 @@ One would think ``state == cross_seeds_check_box.isChecked()`` would return ``Tr
 
 - **Parameters**: ```list links``` 
 
-- **Return**: None
+- **Return**: ``None``
 
 **Description**: Iterates through passed ``list`` and prints out each indexed files's ``name`` and ``link`` into the UI text box; if there are duplicates of the same title, append a letter of the alphabetic to the end of the title, starting with 'a'; increment and append alphabetic character as long as ``name`` is the same
 
@@ -501,8 +482,6 @@ One would think ``state == cross_seeds_check_box.isChecked()`` would return ``Tr
            - Check whether the title of this file does not match the file previously (indicates a new file)
              - **True**:
                - Set ``count`` to ``0``
-             - **False**:
-               - None
            - Check whether the title of this file matches the previous file or whether the title of this file matches the next file
              - **True**: 
                - Print to UI text box, appending alphabetic character of index ``count``
@@ -519,9 +498,9 @@ One would think ``state == cross_seeds_check_box.isChecked()`` would return ``Tr
 
 ### ``clean_directory()`` 
 
-- **Parameters**: None
+- **Parameters**: ``None``
 
-- **Return**: None
+- **Return**: ``None``
 
 **Description**: Checks local save directory and sends to trash all non ``.mp3`` files
 
@@ -536,9 +515,9 @@ One would think ``state == cross_seeds_check_box.isChecked()`` would return ``Tr
 
 ### ``empty_directory()`` 
 
-- **Parameters**: None
+- **Parameters**: ``None``
 
-- **Return**: None
+- **Return**: ``None``
 
 **Description**: Sends to trash all files and all direectories in local save directory
 
@@ -553,7 +532,7 @@ One would think ``state == cross_seeds_check_box.isChecked()`` would return ``Tr
 
 ### ``check_directory()`` 
 
-- **Parameters**: None
+- **Parameters**: ``None``
 
 - **Return**: ``bool``
 
@@ -577,9 +556,9 @@ One would think ``state == cross_seeds_check_box.isChecked()`` would return ``Tr
 
 ### ``open_message_box()`` 
 
-- **Parameters**: None
+- **Parameters**: ``None``
 
-- **Return**: None
+- **Return**: ``None``
 
 **Description**: Start up message box notifying user of necessary Audacity configurations (hard coded)
 
@@ -589,7 +568,7 @@ One would think ``state == cross_seeds_check_box.isChecked()`` would return ``Tr
 
 - **Parameters**: ``string message``
 
-- **Return**: None
+- **Return**: ``None``
 
 **Description**: Message box that displays passed ``string``
 
@@ -607,7 +586,7 @@ One would think ``state == cross_seeds_check_box.isChecked()`` would return ``Tr
 
 ### ``curr_record_prompt_box()`` 
 
-- **Parameters**: None
+- **Parameters**: ``None``
 
 - **Return**: ``bool``
 
