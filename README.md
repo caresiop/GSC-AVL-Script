@@ -1,6 +1,6 @@
 # GSC-AVL-Script
 
-**V2.0 changes**
+**v2.0 changes**
 - PyQT5 GUI
 - Google Drive API Support
 
@@ -8,7 +8,7 @@
 
 ### ``Audacity``
 
-Please download any ``Audacity`` v3.
+Please download any ``Audacity`` **v3**.
 
 - *https://www.audacityteam.org/*
 
