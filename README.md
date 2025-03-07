@@ -1,48 +1,58 @@
 # GSC-AVL-Script
 
-V2.0 changes
+**V2.0 changes**
 - PyQT5 GUI
 - Google Drive API Support
 
-Installation
-------------
-### Audacity
+## Installation
 
-Please download any Audacity Version 3.
+### ``Audacity``
 
-- Link: https://www.audacityteam.org/
+Please download any ``Audacity`` v3.
 
-### PyQT5
+- *https://www.audacityteam.org/*
 
-- Link: https://pypi.org/project/PyQt5/
+---
 
+### ``PyQT5``
+
+- *https://pypi.org/project/PyQt5/*
 
         pip3 install PyQT5
 
-### send2Trash
-- Link: https://pypi.org/project/Send2Trash/
+---
+
+### ``send2Trash``
+- *https://pypi.org/project/Send2Trash/*
 
         pip3 install send2trash
 
-### Google API
-- Link: https://developers.google.com/docs/api/quickstart/python
+---
+
+### ``Google API``
+- *https://developers.google.com/docs/api/quickstart/python*
 
         pip3 install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
 
+---
+
 Set Up
 ------
-### Audacity
-- Enable 'mod-script-pipe'
+### ``Audacity``
+- Enable ``'mod-script-pipe'``
   
       Preferences -> Modules -> Enable 'mod-script-pipe'
 
-### Google Cloud
-Tutorial: https://www.youtube.com/watch?v=6bzzpda63H0
+---
+
+### ``Google Cloud``
+Tutorial: *https://www.youtube.com/watch?v=6bzzpda63H0*
 - Download client JSON file, rename it, add it to directory
 
+---
 
-### config.py
-- Fill ``config.py`` file with local paths and Google Drive folder ids
+### ``config.py``
+- Fill ``config.py`` file with local paths and with Google Drive folder ids
 
       config = {
         'audacity': {
