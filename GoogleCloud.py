@@ -67,7 +67,7 @@ class GoogleCloud():
             nextPageToken = response.get('nextPageToken')
 
 
-    # Method to move files to their respective directories
+    # Helper to move files to their respective directories
     def move_file_to_folder(self, file_id, folder_id):
         # https://developers.google.com/drive/api/guides/folder#python_2
 
@@ -154,6 +154,7 @@ class GoogleCloud():
     def cross_seeds(self, flag):
         self.cross_seeds_flag = flag
 
+    
     def exec(self):
         self.upload_files()
         self.list_contents()
