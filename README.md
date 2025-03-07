@@ -67,6 +67,4 @@ Tutorial: https://www.youtube.com/watch?v=6bzzpda63H0
         }
       }
 
-### Allowing executing file as program
-
-        chmod +x RecordingScript.command
+### Usage
