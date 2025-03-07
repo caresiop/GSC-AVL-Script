@@ -2,9 +2,9 @@
 
 # ``Class MainWindow``
 
-[Button Functions](##Button-Functions)
-- [record](###record())
-[Helper Functions](##Helper-Functions)
+[Button Functions](#button-functions)
+- [record](#record())
+[Helper Functions](#helper-functions)
 ---
 
 ## Button Functions
