@@ -25,14 +25,14 @@ Please download any ``Audacity`` v3.
 ### ``send2Trash``
 - *https://pypi.org/project/Send2Trash/*
 
-        pip3 install send2trash
+      pip3 install send2trash
 
 ---
 
 ### ``Google API``
 - *https://developers.google.com/docs/api/quickstart/python*
 
-        pip3 install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
+      pip3 install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
 
 ---
 
@@ -51,7 +51,7 @@ Tutorial: *https://www.youtube.com/watch?v=6bzzpda63H0*
 - Download client JSON file, rename it, add it to directory
 - Add a new ``Test User`` with a usable ``Gmail`` account
 
-        Sidebar -> APIs & Services -> OAuth consent screen -> Audience -> Test Users
+      Sidebar -> APIs & Services -> OAuth consent screen -> Audience -> Test Users
 
 ---
 
