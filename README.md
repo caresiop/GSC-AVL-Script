@@ -3,6 +3,7 @@
 **v2.0 changes**
 - ``PyQT5`` GUI
 - ``Google Drive API`` Support
+- 'Cross Seeds' session added
 
 ## Installation
 
@@ -92,9 +93,31 @@ Tutorial: *https://www.youtube.com/watch?v=6bzzpda63H0*
 - 'Cross Seeds' folder: *https://drive.google.com/drive/folders/12K29Zq0RGmT2t0xM9BB51sb8blhlMpwE?usp=sharing*
 
 
-### Usage
+## Usage
 
       python3 GSC_Recording_Script.py
 
+<p align="center">
+      <img src="https://github.com/caresiop/GSC-AVL-Script/blob/main/UI.png?raw=true" width="387" height="566" />
+</p>
 
-![GUI](https://github.com/caresiop/GSC-AVL-Script/blob/main/UI.png?raw=true)
+### Buttons:
+- **Record**: Starts ``Audacity`` recording
+- **Pause**: Pauses ``Audacity`` recording
+- **Clear**: Clears ``Audacity`` recording
+- **Save**: Saves ``Audacity`` recording onto local save directory
+- **Local Files**: Opens local save directory
+- **Upload**: Uploads ``.mp3`` file(s) from local save directory onto respective ``Google Drive`` folder(s) and then displays respective link(s) onto app text editor
+- **Copy**: Copies current text on app text editor onto clipboard
+
+### Features:
+- Drop down menu can be manually edited to include other file titles
+  - Unfamiliar file titles will be placed in a ``Google Drive`` 'Misc' folder
+- If program is exited and files aren't uploaded to ``Google Drive``, they can be uploaded on next program start up
+- 'Cross Seeds' check box for church youth group service
+  - Locks session into ``Cross Seeds`` session once file is saved locally to ensure ``GSC`` files and ``Cross Seeds`` files are not uploaded into incorrect ``Google Drive`` folder(s)
+- If user empties local save directory manually, app will recognize there are no files to upload and unlock session
+
+### Workflow:
+
+      Record/Pause/Clear -> Save -> Upload -> Copy
