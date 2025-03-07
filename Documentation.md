@@ -9,7 +9,7 @@
 [Exit](#exit)
 - [``closeEvent()``](#closeEvent)
 
-[Button Functions](#button-functions)
+[UI Functions](#UI-functions)
 - [``record()``](#record)
 - [``pause()``](#pause)
 - [``clear()``](#clear)
@@ -131,7 +131,7 @@
 
 ---
 
-## Button Functions
+## UI Functions
 
 ### ``record()`` 
 
