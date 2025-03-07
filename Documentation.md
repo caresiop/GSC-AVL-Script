@@ -1,4 +1,4 @@
-### ``GSC_Recording_Script.command``
+### ``GSC_Recording_Script.py``
 
 # ``Class MainWindow``
 
