@@ -32,7 +32,7 @@ class MainWindow(QMainWindow):
 
         self.init_UI()
 
-    """ User Interface ================================================================================================================================================================"""
+    """ Main User Interface ================================================================================================================================================================"""
 
     # Initialize UI
     def init_UI(self):
@@ -204,7 +204,7 @@ class MainWindow(QMainWindow):
             self.audacity_service.exit()
             event.accept()
 
-    """ Button functions ================================================================================================================================================================"""
+    """ UI functions ================================================================================================================================================================"""
 
     # Start/Continue recording
     def record(self):
@@ -409,8 +409,7 @@ class MainWindow(QMainWindow):
 
         self.copy_button.setStyleSheet("background-color: grey; padding: 3px; border-radius: 5px;")
 
-    """ Helper functions ================================================================================================================================================================"""
-
+    
     # GSC/Cross Seeds check box
     def check_box_update(self, state, start_up = None):
         if state == self.cross_seeds_check_box.isChecked():
@@ -427,6 +426,7 @@ class MainWindow(QMainWindow):
             else:
                 self.create_message_box("New Session: \'Cross Seeds\'\n")
 
+    """ Helper functions ================================================================================================================================================================"""
 
     # Disables all buttons
     def disable_buttons(self):
