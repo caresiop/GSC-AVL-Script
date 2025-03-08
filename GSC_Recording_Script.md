@@ -49,6 +49,12 @@
 
 ### Flags
 
+- ``start_up_flag``
+
+    **Default**: ``False``
+
+    **Description**: If ``Cross Seeds`` file is in directory on start up, set to ``True`` to notify and message box correct session
+
 - ``curr_recording_flag``
 
     **Default**: ``False`` 
@@ -104,7 +110,8 @@
         - Message box user of continued 'GSC' session 
       - **'Cross Seeds'**:
         - Set ``cross_seeds_flag`` to ``True``
-        - Call ``cross_seeds_check_box()`` with parameter ``True`` to notify function of start up
+        - Set ``start_up_flag`` to ``True``
+        - Check mark ``cross_seeds_check_box``
     - Enable ``Upload`` button (there are files to upload)
     - Disable ``Cross Seeds`` check box (lock session)
   - **False**:
@@ -529,12 +536,12 @@ One would think ``state == cross_seeds_check_box.isChecked()`` would return ``Tr
 
 - **Return**: ``None``
 
-**Description**: Checks whether there are files in the local directory, and if so, enables ``Upload`` button
+**Description**: Checks whether there are files in the local directory, and if so, enables ``Upload`` button; else enable ``Cross Seeds`` check box
 
 **UI states**:
   - **Enabled**: ``None``
   - **Disabled**: ``None``
-  - **Conditional**: ``Upload`` (``file_flag``)
+  - **Conditional**: ``Cross Seeds``, ``Upload`` (``file_flag``)
 
 **Pseudocode**:
 
