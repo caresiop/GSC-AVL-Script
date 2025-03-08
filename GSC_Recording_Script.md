@@ -104,10 +104,10 @@
 - Check whether there are files in local save directory (``check_directory()``)
   - **True**:
     - Obtain ``list`` of files in local save directory
-    - Check whether the files in local save directory are from a 'GSC' session or 'Cross Seeds' session
+    - Check whether the files in local save directory are from a `GSC` session or 'Cross Seeds' session
       - **'GSC'**:
-        - Notify user of 'GSC' session
-        - Message box user of continued 'GSC' session 
+        - Notify user of continued `GSC` session
+        - Message box user of continued `GSC` session 
       - **'Cross Seeds'**:
         - Set ``cross_seeds_flag`` to ``True``
         - Set ``start_up_flag`` to ``True``
@@ -190,7 +190,7 @@
 **UI states**:
 - **Enabled**: ``Pause``, ``Local Files``, ``Copy``
 - **Disabled**: ``Record``
-- **Conditional**: ``Clear/Save`` (``curr_recording_flag``->``update_record_state()``), ``Upload`` (``file_flag``->``update_upload_state()``)
+- **Conditional**: ``Clear/Save`` (``curr_recording_flag``->``update_record_state()``), ``Cross Seeds/Upload`` (``file_flag``->``update_upload_state()``)
 
 **Pseudocode**:
 
@@ -207,7 +207,7 @@
 4. **Restore UI states**
   - Disable ``Record`` button
   - Enable ``Pause`` button
-  - Enable ``Upload`` button if files saved to upload (``file_flag``->``update_record_state()``)
+  - Enable ``Upload`` button if files saved to upload (``file_flag``->``update_record_state()``); if there are no files, enable ``Cross Seeds`` check box
   - Enable ``Local Files`` and ``Copy`` buttons (``enable_local_files_copy()``)
 
 ---
@@ -223,7 +223,7 @@
 **UI states**:
 - **Enabled**: ``Record``, ``Local Files``, ``Copy``
 - **Disabled**: ``Pause``
-- **Conditional**: ``Clear/Save`` (``curr_recording_flag``-> ``update_record_state()``), ``Upload`` (``file_flag``-> ``update_upload_state()``)
+- **Conditional**: ``Clear/Save`` (``curr_recording_flag``-> ``update_record_state()``), ``Cross Seeds/Upload`` (``file_flag``-> ``update_upload_state()``)
 
 **Pseudocode**:
 
@@ -239,7 +239,7 @@
 4. **Restore UI states**
   - Disable ``Pause`` button
   - Enable ``Record`` button
-  - Enable ``Upload`` button if files saved to upload (``file_flag``->``update_record_state()``)
+  - Enable ``Upload`` button if files saved to upload (``file_flag``->``update_record_state()``); if there are no files, enable ``Cross Seeds`` check box
   - Enable ``Local Files`` and ``Copy`` buttons (``enable_local_files_copy()``)
 
 ---
@@ -257,7 +257,7 @@
     - **Yes**:
       - **Enabled**: ``Record``, ``Local Files``, ``Copy``
       - **Disabled**: ``Pause``,  ``Clear``, ``Save``
-      - **Conditional**: ``Upload`` (``file_flag``->``update_upload_state()``)
+      - **Conditional**: ``Cross Seeds/Upload`` (``file_flag``->``update_upload_state()``)
     - **No**:
       - **Enabled**: ``Clear``, ``Save``, ``Local Files``, ``Copy``
       - **Disabled**: ``None``
@@ -281,7 +281,7 @@
 4. **Restore UI states**
   - If ``curr_recording_flag``, enable ``Clear/Save`` buttons (recording was not cleared)
      - If ``record_state_flag``, restore ``Record/Pause`` buttons and their respective colors
-  - Enable ``Upload`` button if files saved to upload (``file_flag``->(``update_record_state()``))
+  - Enable ``Upload`` button if files saved to upload (``file_flag``->(``update_record_state()``)); if there are no files, enable ``Cross Seeds`` check box
   - Enable ``Local Files`` and ``Copy`` buttons (``enable_local_files_copy()``)
   - Set ``Clear`` button to Grey
 
@@ -300,7 +300,7 @@
     - **Yes**:
       - **Enabled**: ``Record``, ``Local Files``, ``Copy``
       - **Disabled**: ``Pause``,  ``Clear``, ``Save``
-      - **Conditional**: ``Upload`` (``file_flag``->``update_upload_state()``)
+      - **Conditional**: ``Cross Seeds/Upload`` (``file_flag``->``update_upload_state()``)
     - **No**:
       - **Enabled**: ``Clear``, ``Save``, ``Local Files``, ``Copy``
       - **Disabled**: ``None``
@@ -337,7 +337,7 @@
 4. **Restore UI states**
   - If ``curr_recording_flag``, enable ``Clear/Save`` buttons (recording was not saved)
      - If ``record_state_flag``, restore ``Record/Pause`` buttons and their respective colors
-  - Enable ``Upload`` button if files saved to upload (``file_flag``->(``update_record_state()``))
+  - Enable ``Upload`` button if files saved to upload (``file_flag``->(``update_record_state()``)); if there are no files, enable ``Cross Seeds`` check box
   - Enable ``Local Files`` and ``Copy`` buttons (``enable_local_files_copy()``)
   - Set ``Save`` button to Grey
 
@@ -356,7 +356,7 @@
     - **Yes**:
       - **Enabled**: ``Record``, ``Local Files``, ``Copy``
       - **Disabled**: ``Pause``,  ``Clear``, ``Save``
-      - **Conditional**: ``Upload`` (``file_flag``->``update_upload_state()``)
+      - **Conditional**: ``Cross Seeds/Upload`` (``file_flag``->``update_upload_state()``)
     - **No**:
       - **Enabled**: ``Clear``, ``Save``, ``Local Files``, ``Copy``
       - **Disabled**: ``None``
@@ -394,7 +394,7 @@
   - Enable ``Record`` button (regardless of prompt answers, ``Record`` needs to be enabled; if there is a recording in progress, the correct button will be set to its respective state via ``curr_recording_flag``)
   - If ``curr_recording_flag``, enable ``Clear/Save`` buttons (recording was not saved)
      - If ``record_state_flag``, restore ``Record/Pause`` buttons and their respective colors
-  - Enable ``Upload`` button if files saved to upload (``file_flag``->(``update_record_state()``))
+  - Enable ``Upload`` button if files saved to upload (``file_flag``->(``update_record_state()``)); if there are no files, enable ``Cross Seeds`` check box
   - Enable ``Local Files`` and ``Copy`` buttons (``enable_local_files_copy()``)
   - Set ``Upload`` button to Grey
 
@@ -462,11 +462,12 @@
   - **False**:
     - Set ``cross_seeds_flag`` to ``True``
     - Call ``GoogleCloud`` function ``cross_seeds`` to notify ``GoogleCloud`` instance that the session is in `Cross Seeds`
-    - Notify user that the session of new session
-      - if ``start_up`` parameter is ``True``
+      - if ``start_up_flag`` is ``True``
         -  **True**:
+          - Notify user of continued `Cross Seeds` session
           - Message box user of continuing previous `Cross Seeds` session
         -  **False**:
+          - Notify user that the session of new session
           - Message box user of new `Cross Seeds` session
   
 **Developer Notes**
