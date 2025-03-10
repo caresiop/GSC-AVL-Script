@@ -31,6 +31,13 @@ Please download any ``Audacity`` **v3**.
 
 ---
 
+### ``pyperclip``
+- *https://pypi.org/project/pyperclip/*
+
+      pip3 install pyperclip
+
+---
+
 ### ``Google API``
 - *https://developers.google.com/docs/api/quickstart/python*
 
@@ -111,7 +118,7 @@ Tutorial: *https://www.youtube.com/watch?v=6bzzpda63H0*
 - **Save**: Saves ``Audacity`` recording onto local save directory
 - **Local Files**: Opens local save directory
 - **Upload**: Uploads ``.mp3`` file(s) from local save directory onto respective ``Google Drive`` folder(s) and then displays respective link(s) onto app text editor
-- **Copy**: Copies current text on app text editor onto clipboard
+- **Copy**: Copies share links from Google Drive upload onto clipboard
 
 ### Features:
 - Drop down menu can be manually edited to include other file titles
