@@ -83,7 +83,7 @@
 
     **Default**: ``False``
 
-    **Description**: ``True`` = ``Upload`` has been called and current share links are available; ``False`` otherwise
+    **Description**: ``True`` = ``Upload`` has been called and most recent share links are available; ``False`` otherwise
 
 ### ``init_UI()``
 
