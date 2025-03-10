@@ -79,6 +79,12 @@
 
     **Description**: ``True`` = 'Cross Seeds' session, ``False`` = 'GSC' session (for naming convention and for uploading to correct Google Drive folders)
 
+- ``copy_flag``
+
+    **Default**: ``False``
+
+    **Description**: ``True`` = ``Upload`` has been called and current share links are available; ``False`` otherwise
+
 ### ``init_UI()``
 
 **Description**:
@@ -190,7 +196,7 @@
 **UI states**:
 - **Enabled**: ``Pause``, ``Local Files``, ``Copy``
 - **Disabled**: ``Record``
-- **Conditional**: ``Clear/Save`` (``curr_recording_flag``->``update_record_state()``), ``Cross Seeds/Upload`` (``file_flag``->``update_upload_state()``)
+- **Conditional**: ``Clear/Save`` (``curr_recording_flag``->``update_record_state()``), ``Cross Seeds/Upload`` (``file_flag``->``update_upload_state()``), ``Copy`` (``copy_flag``->``update_local_files_copy_state()``)
 
 **Pseudocode**:
 
@@ -208,7 +214,7 @@
   - Disable ``Record`` button
   - Enable ``Pause`` button
   - Enable ``Upload`` button if files saved to upload (``file_flag``->``update_record_state()``); if there are no files, enable ``Cross Seeds`` check box
-  - Enable ``Local Files`` and ``Copy`` buttons (``enable_local_files_copy()``)
+  - Enable ``Local Files``; if ``copy_flag`` is ``True``, enable ``Copy`` button (``update_local_files_copy_state()``)
 
 ---
 
@@ -221,9 +227,9 @@
 **Description**: Calls ``Audacity`` command ``pause_audio()``
 
 **UI states**:
-- **Enabled**: ``Record``, ``Local Files``, ``Copy``
+- **Enabled**: ``Record``, ``Local Files``
 - **Disabled**: ``Pause``
-- **Conditional**: ``Clear/Save`` (``curr_recording_flag``-> ``update_record_state()``), ``Cross Seeds/Upload`` (``file_flag``-> ``update_upload_state()``)
+- **Conditional**: ``Clear/Save`` (``curr_recording_flag``-> ``update_record_state()``), ``Cross Seeds/Upload`` (``file_flag``-> ``update_upload_state()``), ``Copy`` (``copy_flag``->``update_local_files_copy_state()``)
 
 **Pseudocode**:
 
@@ -240,7 +246,7 @@
   - Disable ``Pause`` button
   - Enable ``Record`` button
   - Enable ``Upload`` button if files saved to upload (``file_flag``->``update_record_state()``); if there are no files, enable ``Cross Seeds`` check box
-  - Enable ``Local Files`` and ``Copy`` buttons (``enable_local_files_copy()``)
+  - Enable ``Local Files``; if ``copy_flag`` is ``True``, enable ``Copy`` button (``update_local_files_copy_state()``)
 
 ---
   
@@ -255,13 +261,13 @@
 **UI states**:
   - **Prompt**:
     - **Yes**:
-      - **Enabled**: ``Record``, ``Local Files``, ``Copy``
+      - **Enabled**: ``Record``, ``Local Files``
       - **Disabled**: ``Pause``,  ``Clear``, ``Save``
-      - **Conditional**: ``Cross Seeds/Upload`` (``file_flag``->``update_upload_state()``)
+      - **Conditional**: ``Cross Seeds/Upload`` (``file_flag``->``update_upload_state()``), ``Copy`` (``copy_flag``->``update_local_files_copy_state()``)
     - **No**:
-      - **Enabled**: ``Clear``, ``Save``, ``Local Files``, ``Copy``
+      - **Enabled**: ``Clear``, ``Save``, ``Local Files``
       - **Disabled**: ``None``
-      - **Conditional**: ``Record/Pause, Clear/Save`` (``curr_recording_flag``, ``record_state_flag``->``update_record_state()``)
+      - **Conditional**: ``Record/Pause, Clear/Save`` (``curr_recording_flag``, ``record_state_flag``->``update_record_state()``), ``Copy`` (``copy_flag``->``update_local_files_copy_state()``)
   
 **Pseudocode**:
 
@@ -282,7 +288,7 @@
   - If ``curr_recording_flag``, enable ``Clear/Save`` buttons (recording was not cleared)
      - If ``record_state_flag``, restore ``Record/Pause`` buttons and their respective colors
   - Enable ``Upload`` button if files saved to upload (``file_flag``->(``update_record_state()``)); if there are no files, enable ``Cross Seeds`` check box
-  - Enable ``Local Files`` and ``Copy`` buttons (``enable_local_files_copy()``)
+  - Enable ``Local Files``; if ``copy_flag`` is ``True``, enable ``Copy`` button (``update_local_files_copy_state()``)
   - Set ``Clear`` button to Grey
 
 ---
@@ -298,13 +304,13 @@
 **UI states**:
   - **Prompt**:
     - **Yes**:
-      - **Enabled**: ``Record``, ``Local Files``, ``Copy``
+      - **Enabled**: ``Record``, ``Local Files``
       - **Disabled**: ``Pause``,  ``Clear``, ``Save``
-      - **Conditional**: ``Cross Seeds/Upload`` (``file_flag``->``update_upload_state()``)
+      - **Conditional**: ``Cross Seeds/Upload`` (``file_flag``->``update_upload_state()``), ``Copy`` (``copy_flag``->``update_local_files_copy_state()``)
     - **No**:
-      - **Enabled**: ``Clear``, ``Save``, ``Local Files``, ``Copy``
+      - **Enabled**: ``Clear``, ``Save``, ``Local Files``
       - **Disabled**: ``None``
-      - **Conditional**: ``Record/Pause, Clear/Save`` (``curr_recording_flag``, ``record_state_flag``->``update_record_state()``)
+      - **Conditional**: ``Record/Pause, Clear/Save`` (``curr_recording_flag``, ``record_state_flag``->``update_record_state()``), ``Copy`` (``copy_flag``->``update_local_files_copy_state()``)
   
 **Pseudocode**:
 
@@ -338,7 +344,7 @@
   - If ``curr_recording_flag``, enable ``Clear/Save`` buttons (recording was not saved)
      - If ``record_state_flag``, restore ``Record/Pause`` buttons and their respective colors
   - Enable ``Upload`` button if files saved to upload (``file_flag``->(``update_record_state()``)); if there are no files, enable ``Cross Seeds`` check box
-  - Enable ``Local Files`` and ``Copy`` buttons (``enable_local_files_copy()``)
+  - Enable ``Local Files``; if ``copy_flag`` is ``True``, enable ``Copy`` button (``update_local_files_copy_state()``)
   - Set ``Save`` button to Grey
 
 ---
@@ -354,13 +360,13 @@
 **UI states**:
   - **Prompt**:
     - **Yes**:
-      - **Enabled**: ``Record``, ``Local Files``, ``Copy``
+      - **Enabled**: ``Record``, ``Local Files``
       - **Disabled**: ``Pause``,  ``Clear``, ``Save``
-      - **Conditional**: ``Cross Seeds/Upload`` (``file_flag``->``update_upload_state()``)
+      - **Conditional**: ``Cross Seeds/Upload`` (``file_flag``->``update_upload_state()``), ``Copy`` (``copy_flag``->``update_local_files_copy_state()``)
     - **No**:
-      - **Enabled**: ``Clear``, ``Save``, ``Local Files``, ``Copy``
+      - **Enabled**: ``Clear``, ``Save``, ``Local Files``
       - **Disabled**: ``None``
-      - **Conditional**: ``Record/Pause, Clear/Save`` (``curr_recording_flag``, ``record_state_flag``->``update_record_state()``)
+      - **Conditional**: ``Record/Pause, Clear/Save`` (``curr_recording_flag``, ``record_state_flag``->``update_record_state()``), ``Copy`` (``copy_flag``->``update_local_files_copy_state()``)
   
 **Pseudocode**:
 
@@ -386,6 +392,10 @@
                 - Clear UI text box (``text_edit``)
                 - Write date and respective session to UI text box
                 - Print links to UI text box using ``get_links()`` function with ``GoogleCloud`` functions ``get_music_links``, ``get_sermon_links``, ``get_misc_links``
+                - Clear ``GoogleCloud`` instance's link(s) (``clear_links()``)
+                - Copy text edit box's current text onto ``copy_text`` (most recent share links)
+                - Copy ``copy_text`` onto clipboard using ``pyperclip``
+                - Set ``copy_flag`` to ``True`` (there are now files that have been uploaded to ``Google Drive``)
                 - Empty local directory (``empty_directory``)
                 - Message box user that upload was successful
                 - Set ``file_flag`` to ``False`` because there are no files in local directory
@@ -395,7 +405,7 @@
   - If ``curr_recording_flag``, enable ``Clear/Save`` buttons (recording was not saved)
      - If ``record_state_flag``, restore ``Record/Pause`` buttons and their respective colors
   - Enable ``Upload`` button if files saved to upload (``file_flag``->(``update_record_state()``)); if there are no files, enable ``Cross Seeds`` check box
-  - Enable ``Local Files`` and ``Copy`` buttons (``enable_local_files_copy()``)
+  - Enable ``Local Files``; if ``copy_flag`` is ``True``, enable ``Copy`` button (``update_local_files_copy_state()``)
   - Set ``Upload`` button to Grey
 
 ---
@@ -429,16 +439,27 @@
 
 - **Return**: ``None``
 
-**Description**: Copies text in UI text box into clipboard
+**Description**: Copies share links (``copy_text``) into clipboard
+
+**UI states**:
+- **Enabled**: ``Local Files``
+- **Disabled**:
+- **Conditional**: ``Clear/Save`` (``curr_recording_flag``-> ``update_record_state()``), ``Cross Seeds/Upload`` (``file_flag``-> ``update_upload_state()``), ``Copy`` (``copy_flag``->``update_local_files_copy_state()``)
 
 **Pseudocode**:
 
 1. UI changes
+  - Set ``Record/Pause`` button colors to Grey
   - Set ``Copy`` button color to Blue
+  - Disable all buttons (``disable_buttons()``) so no new functions can be queued
 2. Execute
-  - Call QTextEdit function ``selectAll()``
-  - Call QTextEdit function ``copy()``
+  - Copy ``copy_text`` onto clipboard using ``pyperclip`` (``copy_text`` contains most recent share links)
 3. UI changes
+  - Enable ``Record`` button (regardless of prompt answers, ``Record`` needs to be enabled; if there is a recording in progress, the correct button will be set to its respective state via ``curr_recording_flag``)
+  - If ``curr_recording_flag``, enable ``Clear/Save`` buttons (recording was not saved)
+     - If ``record_state_flag``, restore ``Record/Pause`` buttons and their respective colors
+  - Enable ``Upload`` button if files saved to upload (``file_flag``->(``update_record_state()``)); if there are no files, enable ``Cross Seeds`` check box
+  - Enable ``Local Files``; if ``copy_flag`` is ``True``, enable ``Copy`` button (``update_local_files_copy_state()``)
   - Set ``Copy`` button color to Grey
 
 ---
@@ -480,6 +501,23 @@ One would think ``state == cross_seeds_check_box.isChecked()`` would return ``Tr
 
 ## Helper Functions
 
+### ``text_edit_message()``
+
+- **Parameters**: ``string message``
+
+- **Return**: ``None``
+
+**Description**: Prints ``message`` onto the *end* of the text edit box (cursor could previously be moved anywhere by user, leading to incorrect text placements)
+
+- **Pseudocode**:
+
+   - Grab and set text edit box cursor (in case user placed cursor)
+   - Check whether the text edit box is empty
+      - **True**: Put text edit box cursor to the end of the text
+   - Print ``message`` onto text edit box 
+
+---
+
 ### ``disable_buttons()`` 
 
 - **Parameters**: ``None``
@@ -497,6 +535,16 @@ One would think ``state == cross_seeds_check_box.isChecked()`` would return ``Tr
 
 - Disable ``Cross Seeds`` check box and ``Record``, ``Pause``, ``Clear``, ``Save``, ``Upload``, ``Local Files``, ``Copy`` buttons
   
+---
+
+### ``update_buttons()
+
+- **Parameters**: ``None``
+
+- **Return**: ``None``
+
+**Description**: Calls ``update_record_state()``, ``update_upload_state()``, and ``update_local_files_copy_state()``
+
 ---
 
 ### ``update_record_state()`` 
@@ -549,10 +597,12 @@ One would think ``state == cross_seeds_check_box.isChecked()`` would return ``Tr
 - Check ``file_flag`` to see if there are files in the local directory
   - **True**:
     - Enable ``Upload`` button
+  - **False**:
+    - Enable ``Cross Seeds`` check box 
       
 --- 
 
-### ``enable_local_files_copy()`` 
+### ``update_local_files_copy_state()`` 
 
 - **Parameters**: ``None``
 
@@ -561,14 +611,14 @@ One would think ``state == cross_seeds_check_box.isChecked()`` would return ``Tr
 **Description**: Enables ``Local Files/Copy`` buttons
 
 **UI states**:
-  - **Enabled**: ``Local Files``, ``Copy``
+  - **Enabled**: ``Local Files``
   - **Disabled**: ``None``
-  - **Conditional**: ``None``
+  - **Conditional**: ``Copy`` (``copy_flag``)
 
 **Pseudocode**:
 
 - Enable ``Local Files`` button
-- Enable ``Copy`` button
+- If ``copy_flag`` is ``True``, enable ``Copy`` button
   
 ---
 
