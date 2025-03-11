@@ -454,6 +454,7 @@
   - Disable all buttons (``disable_buttons()``) so no new functions can be queued
 2. Execute
   - Copy ``copy_text`` onto clipboard using ``pyperclip`` (``copy_text`` contains most recent share links)
+  - Message box user that share links text has been copied to clipboard
 3. UI changes
   - Enable ``Record`` button (regardless of prompt answers, ``Record`` needs to be enabled; if there is a recording in progress, the correct button will be set to its respective state via ``curr_recording_flag``)
   - If ``curr_recording_flag``, enable ``Clear/Save`` buttons (recording was not saved)
