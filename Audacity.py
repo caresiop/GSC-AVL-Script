@@ -123,6 +123,7 @@ class Audacity():
         """Export track, and delete track."""
         self.do_command("Select: mode=Set")
         self.do_command("SelTrackStartToEnd")
+        self.do_command("LoudnessNormalization")
 
         print(os.path.join(self.PATH, filename))
         response = self.do_command(f"Export2: Filename={os.path.join(self.PATH, filename)} NumChannels=2")
